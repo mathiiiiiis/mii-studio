@@ -3,6 +3,7 @@ import { loadModel, createJoints } from "./skeleton.js";
 import { createPicking } from "./picking.js";
 import { createGizmo } from "./gizmo.js";
 import { createReadout } from "./readout.js";
+import { createHistory } from "./history.js";
 import rig from "../../rig.json";
 
 const { renderer, scene, camera, controls, onFrame } = createScene();
@@ -26,12 +27,25 @@ const picking = createPicking({
   busy: gizmo.busy,
 });
 
+const history = createHistory(rig, model);
 const readout = createReadout(rig);
 
 const selected = () => picking.selected?.userData.bone ?? null;
 
 picking.onSelect((marker) => gizmo.attach(marker?.userData.bone ?? null));
+gizmo.onChange(() => history.push(selected()));
 onFrame(() => readout(selected()));
+
+addEventListener("keydown", (e) => {
+  if (e.target !== document.body) return;
+
+  if (e.key === "z" && (e.ctrlKey || e.metaKey)) history.undo();
+  else if (e.key === "r") history.reset(selected());
+  else if (e.key === "R") history.resetAll();
+  else return;
+
+  e.preventDefault();
+});
 
 console.info(
   `${joints.joints.length} joints, shader ${__HAS_SHADER__ ? "available" : "off"}`,
