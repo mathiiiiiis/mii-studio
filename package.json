@@ -6,6 +6,7 @@
   "description": "pose and animation authoring for Mii Creator Miis (not affiliated)",
   "scripts": {
     "rig": "node bin/dump-rig.js",
+    "read": "node bin/read-pose.js",
     "test": "vitest run"
   },
   "devDependencies": {
