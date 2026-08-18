@@ -15,7 +15,7 @@ const MODULATE_TYPE = {
 const MODE_CONSTANT = 0;
 const MODE_TEXTURE_DIRECT = 1;
 
-export function createMaterials({ renderer, model }) {
+export function createMaterials({ renderer, model, setColorSpace }) {
   const meshes = [];
   model.traverse((o) => {
     if (o.isMesh) meshes.push(o);
@@ -73,6 +73,8 @@ export function createMaterials({ renderer, model }) {
     renderer.outputColorSpace = lut
       ? THREE.LinearSRGBColorSpace
       : THREE.SRGBColorSpace;
+
+    setColorSpace(renderer.outputColorSpace);
   }
 
   return {

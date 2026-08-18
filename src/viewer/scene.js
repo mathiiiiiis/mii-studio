@@ -1,13 +1,34 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
+export const BACKGROUND = 0x16181d;
+
+const GRID = 0x6b7789;
+const GRID_SIZE = 4;
+const GRID_STEP = 0.25;
+
+function createGrid() {
+  const points = [];
+  const half = GRID_SIZE / 2;
+  for (let v = -half; v <= half; v += GRID_STEP) {
+    points.push(-half, 0, v, half, 0, v, v, 0, -half, v, 0, half);
+  }
+  return new THREE.LineSegments(
+    new THREE.BufferGeometry().setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(points, 3),
+    ),
+    new THREE.LineBasicMaterial({ color: GRID }),
+  );
+}
+
 export function createScene() {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   document.body.append(renderer.domElement);
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x16181d);
+  scene.background = new THREE.Color(BACKGROUND);
 
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 40);
   camera.position.set(0.9, 1.4, 3.4);
@@ -21,8 +42,13 @@ export function createScene() {
   key.position.set(2, 3, 4);
   scene.add(key);
 
-  const grid = new THREE.GridHelper(4, 16, 0x3a4150, 0x262b34);
+  const grid = createGrid();
   scene.add(grid);
+
+  const setColorSpace = (space) => {
+    scene.background.setHex(BACKGROUND, space);
+    grid.material.color.setHex(GRID, space);
+  };
 
   const resize = () => {
     const w = innerWidth;
@@ -43,5 +69,5 @@ export function createScene() {
     renderer.render(scene, camera);
   });
 
-  return { renderer, scene, camera, controls, onFrame };
+  return { renderer, scene, camera, controls, onFrame, setColorSpace };
 }

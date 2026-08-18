@@ -7,7 +7,8 @@ import { createHistory } from "./history.js";
 import { createMaterials } from "./materials.js";
 import rig from "../../rig.json";
 
-const { renderer, scene, camera, controls, onFrame } = createScene();
+const { renderer, scene, camera, controls, onFrame, setColorSpace } =
+  createScene();
 
 const model = await loadModel(__MODEL_URL__);
 scene.add(model);
@@ -29,7 +30,7 @@ const picking = createPicking({
 });
 
 const history = createHistory(rig, model);
-const materials = createMaterials({ renderer, model });
+const materials = createMaterials({ renderer, model, setColorSpace });
 const readout = createReadout(rig);
 
 const selected = () => picking.selected?.userData.bone ?? null;
