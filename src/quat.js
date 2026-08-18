@@ -31,13 +31,25 @@ export function rotateVec(q, v) {
   ];
 }
 
+export function norm(q) {
+  return Math.hypot(q[0], q[1], q[2], q[3]);
+}
+
+export function normalize(q) {
+  const n = norm(q);
+  return n === 0 ? [0, 0, 0, 1] : [q[0] / n, q[1] / n, q[2] / n, q[3] / n];
+}
+
 export function dot(a, b) {
   return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
 }
 
-// abs() because q and +q are the same rotation and pose data uses both
+// Divides out length: poses.json is rounded to 5 decimels, so its
+// quaternions are not quire unit and an unscaled dot reads half a
+// degree of error that is not there
 export function angleBetween(a, b) {
-  return 2 * Math.acos(Math.min(1, Math.abs(dot(a, b))));
+  const d = dot(a, b) / (norm(a) * norm(b));
+  return 2 * Math.acos(Math.min(1, Math.abs(d)));
 }
 
 export const DEG = 180 / Math.PI;
