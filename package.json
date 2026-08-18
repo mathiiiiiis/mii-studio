@@ -1,0 +1,14 @@
+{
+  "name": "mii-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "pose and animation authoring for Mii Creator Miis (not affiliated)",
+  "scripts": {
+    "rig": "node bin/dump-rig.js",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.10"
+  }
+}

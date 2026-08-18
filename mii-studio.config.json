@@ -1,0 +1,4 @@
+{
+  "model": "assets/mii.glb",
+  "output": "build/poses.json"
+}
