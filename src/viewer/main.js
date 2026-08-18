@@ -4,6 +4,7 @@ import { createPicking } from "./picking.js";
 import { createGizmo } from "./gizmo.js";
 import { createReadout } from "./readout.js";
 import { createHistory } from "./history.js";
+import { createMaterials } from "./materials.js";
 import rig from "../../rig.json";
 
 const { renderer, scene, camera, controls, onFrame } = createScene();
@@ -28,12 +29,13 @@ const picking = createPicking({
 });
 
 const history = createHistory(rig, model);
+const materials = createMaterials({ renderer, model });
 const readout = createReadout(rig);
 
 const selected = () => picking.selected?.userData.bone ?? null;
 
 picking.onSelect((marker) => gizmo.attach(marker?.userData.bone ?? null));
-gizmo.onChange(() => history.push(selected()));
+gizmo.onDragStart(() => history.push(selected()));
 onFrame(() => readout(selected()));
 
 addEventListener("keydown", (e) => {
@@ -42,6 +44,8 @@ addEventListener("keydown", (e) => {
   if (e.key === "z" && (e.ctrlKey || e.metaKey)) history.undo();
   else if (e.key === "r") history.reset(selected());
   else if (e.key === "R") history.resetAll();
+  else if (e.key === "m")
+    materials.toggle().catch((err) => console.error(err.message));
   else return;
 
   e.preventDefault();

@@ -16,7 +16,10 @@ export default defineConfig({
     fs: { allow: [root, ...(shader ? [dirname(shader)] : [])] },
   },
   resolve: {
-    alias: shader ? { "virtual:lut-shader": shader } : {},
+    //always alias it so the dynamic import resolves at build time
+    alias: {
+      "virtual:lut-shader": shader ?? resolve(root, "src/viewer/no-shader.js"),
+    },
   },
   define: {
     __MODEL_URL__: JSON.stringify(

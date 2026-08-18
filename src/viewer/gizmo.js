@@ -26,6 +26,6 @@ export function createGizmo({ camera, renderer, scene, orbit }) {
     },
     //ignore picking while hovering or draging
     busy: () => controls.axis !== null || controls.dragging,
-    onChange: (fn) => starts.push(fn),
+    onDragStart: (fn) => starts.push(fn),
   };
 }

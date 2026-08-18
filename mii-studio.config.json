@@ -1,4 +1,5 @@
 {
   "model": "assets/mii.glb",
-  "output": "build/poses.json"
+  "output": "build/poses.json",
+  "shader": "src/vendor/LUTShaderMaterial.js"
 }
