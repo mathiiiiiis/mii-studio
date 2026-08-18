@@ -1,7 +1,9 @@
 # mii-studio
 
-Pose and animation authoring for Mii Creator Miis (not affiliated). Reads the
-rig out of a Mii glb and lets you move bones.
+Pose and animation authoring for Mii Creator Miis. Reads the rig out of a Mii
+glb and lets you move bones, then writes poses.json.
+
+Not affiliated with Nintendo. Mii is a trademark of Nintendo.
 
 ## Setup
 
@@ -33,7 +35,7 @@ npm test                run test suite
 ## TODO's / Phases
 
 - [x] 0 rig extraction
-- [ ] 1 world to local space conversion
+- [x] 1 world to local space conversion
 - [ ] 2 viewport, grab a bone and rotate it
 - [ ] 3 export and validate
 - [ ] 4 timeline, clips and ambient loops
