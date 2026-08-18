@@ -42,3 +42,19 @@ export function toAxisAngle(q) {
     degrees: (2 * Math.acos(Math.min(1, sign * q[3]))) / RAD,
   };
 }
+
+export function readPose(rig, pose) {
+  const out = {};
+  for (const [name, local] of Object.entries(pose.rotation ?? {})) {
+    if (rig.bones[name]) out[name] = toWorld(rig.bones[name], local);
+  }
+  return out;
+}
+
+export function writePose(rig, deltas) {
+  const out = {};
+  for (const [name, delta] of Object.entries(deltas)) {
+    if (rig.bones[name]) out[name] = toLocal(rig.bones[name], delta);
+  }
+  return out;
+}
