@@ -5,11 +5,16 @@
   "type": "module",
   "description": "pose and animation authoring for Mii Creator Miis (not affiliated)",
   "scripts": {
+    "dev": "npm run rig --silent && vite",
     "rig": "node bin/dump-rig.js",
     "read": "node bin/read-pose.js",
     "test": "vitest run"
   },
   "devDependencies": {
+    "vite": "^8.2.1",
     "vitest": "^4.1.10"
+  },
+  "dependencies": {
+    "three": "^0.185.1"
   }
 }
