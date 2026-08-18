@@ -32,6 +32,12 @@ npm run rig -- --table  # print local axis table
 npm test                run test suite
 ```
 
+## Keybinds
+
+- `r`: resets selected bone
+- `shift+R`: resets everything
+- `ctrl+z`: steps back one drag at a time
+
 ## TODO's / Phases
 
 - [x] 0 rig extraction
