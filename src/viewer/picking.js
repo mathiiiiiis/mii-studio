@@ -4,7 +4,12 @@ const SELECTED = 0x4fc3f7;
 const IDLE = 0xf0b429;
 const DRAG_SLOP = 5;
 
-export function createPicking({ renderer, camera, joints }) {
+export function createPicking({
+  renderer,
+  camera,
+  joints,
+  busy = () => false,
+}) {
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
   const listeners = [];
@@ -26,7 +31,7 @@ export function createPicking({ renderer, camera, joints }) {
   };
 
   renderer.domElement.addEventListener("pointerdown", (e) => {
-    downAt = { x: e.clientX, y: e.clientY };
+    downAt = busy() ? null : { x: e.clientX, y: e.clientY };
   });
 
   renderer.domElement.addEventListener("pointerup", (e) => {
