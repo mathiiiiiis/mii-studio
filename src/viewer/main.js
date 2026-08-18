@@ -26,12 +26,6 @@ const picking = createPicking({
 });
 
 picking.onSelect((marker) => gizmo.attach(marker?.userData.bone ?? null));
-gizmo.onChange((bone) =>
-  console.debug(
-    bone.name,
-    bone.quaternion.toArray().map((n) => n.toFixed(4)),
-  ),
-);
 
 console.info(
   `${joints.joints.length} joints, shader ${__HAS_SHADER__ ? "available" : "off"}`,

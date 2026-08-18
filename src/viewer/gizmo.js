@@ -14,9 +14,9 @@ export function createGizmo({ camera, renderer, scene, orbit }) {
     orbit.enabled = !e.value;
   });
 
-  const listeners = [];
-  controls.addEventListener("objectChange", () => {
-    for (const fn of listeners) fn(controls.object);
+  const starts = [];
+  controls.addEventListener("mouseDown", () => {
+    for (const fn of starts) fn(controls.object);
   });
 
   return {
@@ -26,6 +26,6 @@ export function createGizmo({ camera, renderer, scene, orbit }) {
     },
     //ignore picking while hovering or draging
     busy: () => controls.axis !== null || controls.dragging,
-    onChange: (fn) => listeners.push(fn),
+    onChange: (fn) => starts.push(fn),
   };
 }
