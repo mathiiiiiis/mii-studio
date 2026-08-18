@@ -3,6 +3,13 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 const JOINT_RADIUS = 0.022;
 
+// Skl_Root, Spine_1 and Waist overlap, causing raycasts to select the
+// wrong bone. Only the marker moves
+const MARKER_OFFSET = {
+  Spine_1: [0, 0.06, 0],
+  Waist: [0, -0.06, 0],
+};
+
 export async function loadModel(url) {
   const gltf = await new GLTFLoader().loadAsync(url);
   const model = gltf.scene;
@@ -30,6 +37,15 @@ export function createJoints(model, boneNames) {
     marker.userData.bone = bone;
     marker.userData.name = name;
 
+    // Stored bone local, so marker rotates with body instead of
+    // sliding off joint once torso bends
+    const world = MARKER_OFFSET[name];
+    marker.userData.offset = world
+      ? new THREE.Vector3(...world).applyQuaternion(
+          bone.getWorldQuaternion(new THREE.Quaternion()).invert(),
+        )
+      : null;
+
     group.add(marker);
     joints.push(marker);
   }
@@ -54,9 +70,19 @@ export function createJoints(model, boneNames) {
     new THREE.BufferAttribute(positions, 3),
   );
 
+  const spin = new THREE.Quaternion();
+  const tmp = new THREE.Vector3();
   const sync = () => {
     for (const marker of joints) {
-      marker.userData.bone.getWorldPosition(marker.position);
+      const bone = marker.userData.bone;
+      bone.getWorldPosition(marker.position);
+      if (marker.userData.offset) {
+        marker.position.add(
+          tmp
+            .copy(marker.userData.offset)
+            .applyQuaternion(bone.getWorldQuaternion(spin)),
+        );
+      }
     }
     pairs.forEach(([a, b], i) => {
       a.position.toArray(positions, i * 6);
