@@ -38,7 +38,7 @@ export function toAxisAngle(q) {
     axis:
       s < 1e-9
         ? [0, 1, 0]
-        : [(sign * q[0]) / s, (sign * q[1]) / s, (sign * q[2]) / 2],
+        : [(sign * q[0]) / s, (sign * q[1]) / s, (sign * q[2]) / s],
     degrees: (2 * Math.acos(Math.min(1, sign * q[3]))) / RAD,
   };
 }
