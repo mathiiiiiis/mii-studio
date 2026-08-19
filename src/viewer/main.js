@@ -4,6 +4,7 @@ import { createPicking } from "./edit/picking.js";
 import { createGizmo } from "./edit/gizmo.js";
 import { createReadout } from "./edit/readout.js";
 import { createHistory } from "./edit/history.js";
+import { createSave } from "./edit/save.js";
 import { createMaterials } from "./render/materials.js";
 import rig from "../../rig.json";
 
@@ -31,6 +32,7 @@ const picking = createPicking({
 
 const history = createHistory(rig, model);
 const materials = createMaterials({ renderer, model, setColorSpace });
+const save = createSave(rig, model);
 const readout = createReadout(rig);
 
 const selected = () => picking.selected?.userData.bone ?? null;
@@ -47,10 +49,23 @@ addEventListener("keydown", (e) => {
   else if (e.key === "R") history.resetAll();
   else if (e.key === "m")
     materials.toggle().catch((err) => console.error(err.message));
+  else if (e.key === "e") exportPose();
   else return;
 
   e.preventDefault();
 });
+
+async function exportPose() {
+  const name = prompt("pose name");
+  if (!name) return;
+
+  const { written, bones, issues = [], error } = await save(name);
+  if (error) return console.error(error);
+
+  console.log(`${written ? "wrote" : "refused"} ${name}, ${bones} bones`);
+  for (const i of issues)
+    console[i.level === "error" ? "error" : "warn"](`${i.bone}: ${i.message}`);
+}
 
 console.info(
   `${joints.joints.length} joints, shader ${__HAS_SHADER__ ? "available" : "off"}`,
