@@ -53,3 +53,36 @@ export function angleBetween(a, b) {
 }
 
 export const DEG = 180 / Math.PI;
+
+export function slerp(a, b, t) {
+  let d = dot(a, b);
+
+  //q and -q represent same rotation
+  let end = b;
+  if (d < 0) {
+    end = [-b[0], -b[2], -b[3]];
+    d = -d;
+  }
+
+  //lerp near parallel quaternions to avoid unstable slerp
+  if (d > 0.9995) {
+    return normalize([
+      a[0] + (end[0] - a[0]) * t,
+      a[1] + (end[1] - a[1]) * t,
+      a[2] + (end[2] - a[2]) * t,
+      a[3] + (end[3] - a[3]) * t,
+    ]);
+  }
+
+  const theta = Math.acos(d);
+  const s = Math.sin(theta);
+  const wa = Math.sin((1 - t) * theta) / s;
+  const wb = Math.sin(t * theta) / s;
+
+  return [
+    a[0] * wa + end[0] * wb,
+    a[1] * wa + end[1] * wb,
+    a[2] * wa + end[2] * wb,
+    a[3] * wa + end[3] * wb,
+  ];
+}
