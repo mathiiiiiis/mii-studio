@@ -1,5 +1,5 @@
 import { norm, angleBetween, DEG } from "./quat";
-import ranges from "./data/ranges.json" with { type: "json" };
+import ranges from "../data/ranges.json" with { type: "json" };
 
 const RANGE_SLACK = 1.15;
 const FLOOR_DEG = 5;

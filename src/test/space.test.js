@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { loadRig } from "../rig.js";
-import { angleBetween, rotateVec, DEG } from "../quat.js";
+import { angleBetween, rotateVec, DEG } from "../math/quat.js";
 import {
   toLocal,
   toWorld,
@@ -11,7 +11,7 @@ import {
   axisAngle,
   toAxisAngle,
   WORLD,
-} from "../space.js";
+} from "../math/space.js";
 import { ROOT } from "../config.js";
 
 const rig = loadRig();

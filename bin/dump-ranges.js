@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { loadRig } from "../src/rig.js";
-import { angleBetween, DEG } from "../src/quat.js";
+import { angleBetween, DEG } from "../src/math/quat.js";
 import { ROOT } from "../src/config.js";
 
 const rig = loadRig();

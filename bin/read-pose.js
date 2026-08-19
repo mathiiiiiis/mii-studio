@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { loadRig } from "../src/rig.js";
-import { readPose, toAxisAngle } from "../src/space.js";
+import { readPose, toAxisAngle } from "../src/math/space.js";
 import { ROOT } from "../src/config.js";
 
 const [name, file] = process.argv.slice(2);

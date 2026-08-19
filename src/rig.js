@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { mul, rotateVec } from "./quat.js";
+import { mul, rotateVec } from "./math/quat.js";
 import { loadConfig } from "./config.js";
 
 const GLB_MAGIC = 0x46546c67;

@@ -1,10 +1,10 @@
-import { createScene } from "./scene.js";
-import { loadModel, createJoints } from "./skeleton.js";
-import { createPicking } from "./picking.js";
-import { createGizmo } from "./gizmo.js";
-import { createReadout } from "./readout.js";
-import { createHistory } from "./history.js";
-import { createMaterials } from "./materials.js";
+import { createScene } from "./render/scene.js";
+import { loadModel, createJoints } from "./render/skeleton.js";
+import { createPicking } from "./edit/picking.js";
+import { createGizmo } from "./edit/gizmo.js";
+import { createReadout } from "./edit/readout.js";
+import { createHistory } from "./edit/history.js";
+import { createMaterials } from "./render/materials.js";
 import rig from "../../rig.json";
 
 const { renderer, scene, camera, controls, onFrame, setColorSpace } =

@@ -18,7 +18,7 @@ export default defineConfig({
   resolve: {
     //always alias it so the dynamic import resolves at build time
     alias: {
-      "virtual:lut-shader": shader ?? resolve(root, "src/viewer/no-shader.js"),
+      "virtual:lut-shader": shader ?? resolve(root, "src/viewer/render/no-shader.js"),
     },
   },
   define: {

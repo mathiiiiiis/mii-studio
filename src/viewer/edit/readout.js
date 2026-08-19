@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { toAxisAngle } from "../space.js";
+import { toAxisAngle } from "../../math/space.js";
 
 const STYLE = `
 position:fixed; top:12px; left:12px; padding:10px 12px;
