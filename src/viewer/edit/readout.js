@@ -11,7 +11,7 @@ white-space:pre; pointer-events:none;
 const TRACK = 48;
 
 const KEYS = [
-  ["j k l", "prev key, record, next key"],
+  ["k c l", "prev key, record, next key"],
   [", .", "step 50ms"],
   ["x", "delete key"],
   ["space", "play/pause"],
