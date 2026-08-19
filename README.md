@@ -39,12 +39,12 @@ npm test                run test suite
 - `ctrl+z`: steps back one drag at a time
 - `m`: toggle on/off lut shader material
 - `e`: export pose
-- `k`: previous key
-- `c`: record
-- `l`: next key
+- `y`: previous key
+- `x`: record
+- `c`: next key
 - `,`: step back 50ms
 - `.`: step forward 50ms
-- `x`: delete key
+- `a`: delete key
 - `space`: play/pause
 
 ## TODO's / Phases
