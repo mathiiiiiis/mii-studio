@@ -5,7 +5,7 @@ export const isAmbient = (entry) => entry?.type === "ambient";
 
 export function compile(entry) {
   const additive = isAmbient(entry);
-  const field = additive ? "delta" : "roatation";
+  const field = additive ? "delta" : "rotation";
   const tracks = {};
 
   for (const key of entry.keys) {
@@ -32,7 +32,7 @@ function sampleTrack(track, t, duration, loop) {
     const span = duration - last.t + track[0].t;
     return span <= 0
       ? track[0].q
-      : slerp(last.q, track[0].q, (t - last.t) / span);
+      : slerp(last.q, track[0].q, (t - last.t + duration) / span);
   }
 
   for (let i = 1; i < track.length; i++) {
