@@ -53,14 +53,14 @@ addEventListener("keydown", (e) => {
   else if (e.key === "m")
     materials.toggle().catch((err) => console.error(err.message));
   else if (e.key === "e") exportPose();
-  else if (e.key === "k")
+  else if (e.key === "c")
     console.log(`key at ${animate.time}, ${animate.record()} bones`);
   else if (e.key === "x") animate.erase();
   else if (e.key === " ") animate.toggle();
   else if (e.key === ",") animate.step(-1);
   else if (e.key === ".") animate.step(1);
-  else if (e.key === "j") animate.step(-1);
-  else if (e.key === "k") animate.step(1);
+  else if (e.key === "k") animate.step(-1);
+  else if (e.key === "l") animate.step(1);
   else return;
 
   e.preventDefault();
