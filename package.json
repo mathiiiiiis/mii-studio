@@ -8,6 +8,7 @@
     "dev": "npm run rig --silent && vite",
     "rig": "node bin/dump-rig.js",
     "read": "node bin/read-pose.js",
+    "ranges": "node bin/dump-ranges.js",
     "test": "vitest run"
   },
   "devDependencies": {
