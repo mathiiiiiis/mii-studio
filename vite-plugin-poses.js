@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { loadRig } from "./src/rig.js";
-import { validatePose, hasErrors } from "./src/pose/validate.js";
+import { validateEntry, hasErrors } from "./src/pose/validate.js";
 import { formatPoses } from "./src/pose/format.js";
 import { loadConfig } from "./src/config.js";
 
@@ -25,7 +25,7 @@ export function poses() {
     name: "mii-studio-poses",
     configureServer(server) {
       const rig = loadRig();
-      const { output } = loadConfig();
+      const { output, limits } = loadConfig();
 
       server.middlewares.use(ROUTE, async (req, res) => {
         const send = (status, body) => {
@@ -47,7 +47,7 @@ export function poses() {
         if (!name || !pose)
           return send(400, { error: "name and pose required" });
 
-        const issues = validatePose(rig, pose);
+        const issues = validateEntry(rig, pose, limits);
         if (hasErrors(issues)) return send(422, { written: false, issues });
 
         //merge, file holds every pose

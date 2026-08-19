@@ -9,6 +9,12 @@ const DEFAULTS = {
   output: "build/poses.json",
 };
 
+export const LIMITS = {
+  ambientDeg: 3,
+  clipMs: 2000,
+  resyncMs: 30000,
+};
+
 export function loadConfig(overrides = {}) {
   const file = resolve(ROOT, "mii-studio.config.json");
   const user = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : {};
@@ -23,5 +29,6 @@ export function loadConfig(overrides = {}) {
     }
     merged[key] = isAbsolute(value) ? value : resolve(ROOT, value);
   }
+  merged.limits = { ...LIMITS, ...user.limits, ...overrides.limits };
   return merged;
 }

@@ -1,5 +1,10 @@
 {
   "model": "assets/mii.glb",
   "output": "build/poses.json",
-  "shader": "src/vendor/LUTShaderMaterial.js"
+  "shader": "src/vendor/LUTShaderMaterial.js",
+  "limits": {
+    "ambientDeg": 3,
+    "clipMs": 2000,
+    "resyncMs": 30000
+  }
 }
