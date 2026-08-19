@@ -11,10 +11,11 @@ white-space:pre; pointer-events:none;
 const TRACK = 48;
 
 const KEYS = [
-  ["k c l", "prev key, record, next key"],
+  ["y x c", "prev key, record, next key"],
   [", .", "step 50ms"],
-  ["x", "delete key"],
+  ["a", "delete key"],
   ["space", "play/pause"],
+  ["t d", "type, duration"],
   ["e", "export"],
   ["r R", "reset bone, reset all"],
   ["ctrl+z", "undo"],
