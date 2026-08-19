@@ -37,13 +37,15 @@ npm test                run test suite
 - `r`: resets selected bone
 - `shift+R`: resets everything
 - `ctrl+z`: steps back one drag at a time
+- `m`: toggle on/off lut shader material
+- `e`: export pose
 
 ## TODO's / Phases
 
 - [x] 0 rig extraction
 - [x] 1 world to local space conversion
-- [ ] 2 viewport, grab a bone and rotate it
-- [ ] 3 export and validate
+- [x] 2 viewport, grab a bone and rotate it
+- [x] 3 export and validate
 - [ ] 4 timeline, clips and ambient loops
 
 ## Notes
