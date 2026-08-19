@@ -10,6 +10,21 @@ white-space:pre; pointer-events:none;
 
 const TRACK = 48;
 
+const KEYS = [
+  ["j k l", "prev key, record, next key"],
+  [", .", "step 50ms"],
+  ["x", "delete key"],
+  ["space", "play/pause"],
+  ["e", "export"],
+  ["r R", "reset bone, reset all"],
+  ["ctrl+z", "undo"],
+  ["m", "lut shader"],
+];
+
+const PAD = Math.max(...KEYS.map(([k]) => k.length));
+
+const help = KEYS.map(([k, what]) => `  ${k.padEnd(PAD)}  ${what}`).join("\n");
+
 const track = (a) => {
   const cells = Array(TRACK).fill("·");
   const at = (t) =>
@@ -39,25 +54,25 @@ export function createReadout(rig) {
   return (bone, animate) => {
     const lines = [header(animate), ""];
 
-    if (!bone) {
-      el.textContent = [...lines, "no bone selected"].join("\n");
-      return;
+    if (bone) {
+      //compare live world orientation to cached rest pose
+      bone.getWorldQuaternion(live);
+      rest.fromArray(rig.bones[bone.name].world).invert();
+      delta.multiplyQuaternions(live, rest);
+
+      const { axis, degrees } = toAxisAngle(delta.toArray());
+      const q = bone.quaternion.toArray().map((n) => n.toFixed(4));
+
+      lines.push(
+        bone.name,
+        `world: ${degrees.toFixed(1)}deg`,
+        `about: ${axis.map((n) => n.toFixed(2)).join(" ")}`,
+        `local: ${q.join("  ")}`,
+      );
+    } else {
+      lines.push("no bone selected");
     }
 
-    //compare live world orientation to cached rest pose
-    bone.getWorldQuaternion(live);
-    rest.fromArray(rig.bones[bone.name].world).invert();
-    delta.multiplyQuaternions(live, rest);
-
-    const { axis, degrees } = toAxisAngle(delta.toArray());
-    const q = bone.quaternion.toArray().map((n) => n.toFixed(4));
-
-    el.textContent = [
-      ...lines,
-      bone.name,
-      `world: ${degrees.toFixed(1)}deg`,
-      `about: ${axis.map((n) => n.toFixed(2)).join(" ")}`,
-      `local: ${q.join("  ")}`,
-    ].join("\n");
+    el.textContent = [...lines, "", help].join("\n");
   };
 }
