@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { loadRig } from "./src/rig.js";
 import { validatePose, hasErrors } from "./src/pose/validate.js";
+import { formatPoses } from "./src/pose/format.js";
 import { loadConfig } from "./src/config.js";
 
 const ROUTE = "/__poses";
@@ -57,7 +58,7 @@ export function poses() {
         existing[name] = pose;
 
         mkdirSync(dirname(output), { recursive: true });
-        writeFileSync(output, JSON.stringify(existing, null, 2) + "\n");
+        writeFileSync(output, formatPoses(existing));
 
         send(200, { written: true, name, output, issues });
       });
