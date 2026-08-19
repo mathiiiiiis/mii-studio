@@ -42,7 +42,7 @@ const selected = () => picking.selected?.userData.bone ?? null;
 
 picking.onSelect((marker) => gizmo.attach(marker?.userData.bone ?? null));
 gizmo.onDragStart(() => history.push(selected()));
-onFrame(() => readout(selected()));
+onFrame(() => readout(selected(), animate));
 
 addEventListener("keydown", (e) => {
   if (e.target !== document.body) return;

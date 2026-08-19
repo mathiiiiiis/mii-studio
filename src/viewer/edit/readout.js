@@ -8,6 +8,25 @@ background:#1e222acc; border:1px solid #333a46; border-radius:4px;
 white-space:pre; pointer-events:none;
 `;
 
+const TRACK = 48;
+
+const track = (a) => {
+  const cells = Array(TRACK).fill("·");
+  const at = (t) =>
+    Math.round((t / Math.max(1, a.timeline.duration)) * (TRACK - 1));
+
+  for (const t of a.timeline.keys) cells[at(t)] = "|";
+  cells[at(a.time)] = a.timeline.keys.includes(a.time) ? "#" : "^";
+
+  return cells.join("");
+};
+
+const header = (a) =>
+  [
+    `${a.playing ? "play" : "stop"}  ${a.time}/${a.timeline.duration}ms  ${a.timeline.type}`,
+    track(a),
+  ].join("\n");
+
 export function createReadout(rig) {
   const el = document.createElement("div");
   el.style.cssText = STYLE;
@@ -17,25 +36,28 @@ export function createReadout(rig) {
   const rest = new THREE.Quaternion();
   const delta = new THREE.Quaternion();
 
-  return (bone) => {
+  return (bone, animate) => {
+    const lines = [header(animate), ""];
+
     if (!bone) {
-      el.textContent = "no bone selected";
+      el.textContent = [...lines, "no bone selected"].join("\n");
       return;
     }
 
     //compare live world orientation to cached rest pose
     bone.getWorldQuaternion(live);
-    rest.fromArray(rig.bones[bone.name].world);
-    delta.multiplyQuaternions(live, rest.invert());
+    rest.fromArray(rig.bones[bone.name].world).invert();
+    delta.multiplyQuaternions(live, rest);
 
     const { axis, degrees } = toAxisAngle(delta.toArray());
     const q = bone.quaternion.toArray().map((n) => n.toFixed(4));
 
     el.textContent = [
+      ...lines,
       bone.name,
-      `\nworld: ${degrees.toFixed(1)}def`,
-      `\nabout: ${axis.map((n) => n.toFixed(2)).join(" ")}`,
-      `\nlocal: ${q.join("  ")}`,
-    ];
+      `world: ${degrees.toFixed(1)}deg`,
+      `about: ${axis.map((n) => n.toFixed(2)).join(" ")}`,
+      `local: ${q.join("  ")}`,
+    ].join("\n");
   };
 }
