@@ -74,6 +74,13 @@ export function createAnimate(rig, model) {
     seek,
 
     toggle() {
+      if (
+        !playing &&
+        timeline.type !== "ambient" &&
+        time >= timeline.duration
+      ) {
+        seek(0);
+      }
       playing = !playing;
       last = performance.now();
       return playing;
