@@ -5,6 +5,7 @@ import { createGizmo } from "./edit/gizmo.js";
 import { createReadout } from "./edit/readout.js";
 import { createHistory } from "./edit/history.js";
 import { createSave } from "./edit/save.js";
+import { createAnimate } from "./edit/animate.js";
 import { createMaterials } from "./render/materials.js";
 import rig from "../../rig.json";
 
@@ -33,6 +34,8 @@ const picking = createPicking({
 const history = createHistory(rig, model);
 const materials = createMaterials({ renderer, model, setColorSpace });
 const save = createSave(rig, model);
+const animate = createAnimate(rig, model);
+onFrame(animate.tick);
 const readout = createReadout(rig);
 
 const selected = () => picking.selected?.userData.bone ?? null;
@@ -50,6 +53,14 @@ addEventListener("keydown", (e) => {
   else if (e.key === "m")
     materials.toggle().catch((err) => console.error(err.message));
   else if (e.key === "e") exportPose();
+  else if (e.key === "k")
+    console.log(`key at ${animate.time}, ${animate.record()} bones`);
+  else if (e.key === "x") animate.erase();
+  else if (e.key === " ") animate.toggle();
+  else if (e.key === ",") animate.step(-1);
+  else if (e.key === ".") animate.step(1);
+  else if (e.key === "j") animate.step(-1);
+  else if (e.key === "k") animate.step(1);
   else return;
 
   e.preventDefault();
