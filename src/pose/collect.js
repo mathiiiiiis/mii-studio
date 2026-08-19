@@ -1,5 +1,5 @@
-import { angleBetween, DEG, normalize } from "./quat";
-import { toWorld, toAxisAngle } from "./space";
+import { angleBetween, DEG, normalize } from "../math/quat.js";
+import { toWorld, toAxisAngle } from "../math/space.js";
 
 //ignore negligible movement
 const MOVED_DEG = 0.01;

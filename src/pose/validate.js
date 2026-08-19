@@ -1,4 +1,4 @@
-import { norm, angleBetween, DEG } from "./quat";
+import { norm, angleBetween, DEG } from "../math/quat.js";
 import ranges from "../data/ranges.json" with { type: "json" };
 
 const RANGE_SLACK = 1.15;
