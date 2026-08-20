@@ -12,7 +12,7 @@
 
   --ink: #{p.$white};
   --ink-strong: #{p.$white};
-  --ink-mute: #{p.$ink-faint};
+  --ink-muted: #{p.$ink-faint};
   --ink-faint: #{p.$ink-dim};
   --ink-on-control: #{p.$ink};
 
@@ -25,7 +25,7 @@
   --surface-stage: #{p.$paper};
   --surface-bar: #{p.$bar};
   --surface-card: #{p.$white};
-  --surface-card: #{p.$btn-hi};
+  --surface-control: #{p.$btn-hi};
   --surface-control-lo: #{p.$btn-lo};
 
   --ink: #{p.$ink};
@@ -48,6 +48,29 @@
   --accent-mid: #{p.$blue-mid};
 
   --control-line: #{p.$btn-alt-line};
+  --control-height: clamp(2.75rem, 6vh, 3.5rem);
+  --control-edge: linear-gradient(
+    to bottom,
+    #51c3ea,
+    #34baea 2%,
+    #3abfed 98%,
+    #5fbddd
+  );
+  --control-fill: linear-gradient(
+    to bottom,
+    #c1d0dc 0%,
+    #dfe5ec 0.8%,
+    #e6ebf2 5%,
+    #dfe4ed 39.2%,
+    #dfe5ed 76.8%,
+    #dce1ea 80.8%,
+    #d2dce6 85.6%,
+    #c8d2de 89.6%,
+    #bfcdd9 92%,
+    #b9c7d7 96.8%,
+    #b6c6d7 100%
+  );
+  --control-gloss: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 134' preserveAspectRatio='none'%3E%3Cpath fill='%23fff' d='M67,11 L362.5,11 A19.5,19.5 0 0 1 362.5,50 L65.5,50 A49.5,49.5 0 0 0 16.6,91.5 A56,56 0 0 1 67,11 Z'/%3E%3C/svg%3E");
   --band: #{p.$band};
 
   --lift: 0 0.5vh 1vh rgb(170 170 170 / 53%);
