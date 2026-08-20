@@ -1,5 +1,6 @@
 @use "palette" as p;
 @use "typography";
+@use "motion";
 
 @mixin black {
   --surface: #{p.$black};
@@ -59,6 +60,8 @@
 :root {
   @include constants;
   @include typography.type;
+  @include motion.motion;
+  @include motion.reduce;
   @include black;
 }
 

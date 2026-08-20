@@ -57,7 +57,8 @@ npm test                # run test suite
 - [x] 4 timeline, clips and ambient loops
 - [x] 6 vue shell, commands registry replacing keydown chain
 - [ ] 7 rig extraction in the browser
-- [ ] 8 theme layer, tokens and so on
+- [x] 8 theme layer, tokens and so on
+  - [ ] 8.5 icons come when UI needs them
 - [ ] 9 components: pill, icon button, hover label, tab header, message box, etc.
 - [ ] 10 screens: pose / timeline / clips
 - [ ] 11 dashboard, multiple models, tiles
