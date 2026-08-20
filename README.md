@@ -3,8 +3,6 @@
 Pose and animation authoring for Mii Creator Miis. Reads the rig out of a Mii
 glb and lets you move bones, then writes poses.json.
 
-Not affiliated with Nintendo. Mii is a trademark of Nintendo.
-
 ## Setup
 
 ```bash
@@ -71,3 +69,15 @@ to my website! But maybe I will turn it into something bigger, who knows
 
 No AI was/will be used in the progress of creating this.
 Not one single line.
+
+## Credits
+
+- Wii Programming Guidlines v1.01a (2006) and Icon and Banner Specifications (2008),
+  for the constraints behind the design language
+- [ariankordi/FFL.js](https://github.com/ariankordi/FFL.js) for `LUTShaderMaterial`
+- [datkat21/mii-creator](https://github.com/datkat21/mii-creator) for the clips
+  in `fixtures/poses.json`. (https://mii.nxw.pw/)
+- [jerosajose/onliine](https://github.com/jerosajose/onliine) sampled for interface
+  colours and geometry
+
+Mii is a trademark of Nintendo. Not affiliated with Nintendo.
