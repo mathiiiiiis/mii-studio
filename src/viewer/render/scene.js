@@ -23,7 +23,7 @@ function createGrid() {
 }
 
 export function createScene() {
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   document.body.append(renderer.domElement);
 

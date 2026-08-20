@@ -72,7 +72,8 @@ addEventListener("keydown", (e) => {
     console.log(`key at ${animate.time}, ${animate.record()} bones`);
   else if (e.key === "a") animate.erase();
   else if (e.key === " ") animate.toggle();
-  else if (e.key === "i") icon();
+  else if (e.key === "i") icon(512, null);
+  else if (e.key === "I") icon(512, "#ededed");
   else if (e.key === "f") frameModel(camera, controls, model);
   else if (e.key === "d") setDuration();
   else if (e.key === "t")

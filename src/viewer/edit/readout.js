@@ -21,7 +21,8 @@ const KEYS = [
   ["r R", "reset bone, reset all"],
   ["ctrl+z", "undo"],
   ["m", "lut shader"],
-  ["i", "save icon"],
+  ["i", "save icon with no bg"],
+  ["shift+i", "save icon with bg"],
   ["f", "frame model"],
 ];
 

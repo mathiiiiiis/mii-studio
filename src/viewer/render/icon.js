@@ -1,8 +1,6 @@
 import * as THREE from "three";
 import { frameModel } from "./framing.js";
 
-const SIZE = 512;
-const BACKGROUND = "#ededed";
 const SUPERSAMPLE = 4;
 
 export function createIcon({
@@ -16,7 +14,7 @@ export function createIcon({
 }) {
   const previous = new THREE.Vector2();
 
-  return async function capture(size = SIZE, background = BACKGROUND) {
+  return async function capture(size, background) {
     const ratio = renderer.getPixelRatio();
     const aspect = camera.aspect;
     const hidden = hide.map((o) => o.visible);
