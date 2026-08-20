@@ -41,7 +41,10 @@ export function createAnimate(rig, model) {
 
     //recording is explicit, unrecorded scrubbing changes are discarded
     record() {
-      const { rotation } = collectPose(rig, get);
+      const keyed = new Set(
+        timeline.keys.flatMap((t) => Object.keys(timeline.keyAt(t) ?? {})),
+      );
+      const { rotation } = collectPose(rig, get, (name) => keyed.add(name));
       const map =
         timeline.type === "ambient"
           ? Object.fromEntries(

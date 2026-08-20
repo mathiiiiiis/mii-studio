@@ -7,7 +7,7 @@ const PRECISION = 5;
 
 const round = (n) => Number(n.toFixed(PRECISION));
 
-export function collectPose(rig, getQuaternion) {
+export function collectPose(rig, getQuaternion, keep = () => false) {
   const rotation = {};
 
   for (const name of rig.poseBones) {
@@ -15,6 +15,9 @@ export function collectPose(rig, getQuaternion) {
     const q = getQuaternion(name);
     if (!q) continue;
     if (angleBetween(q, bone.rest.rotation) * DEG < MOVED_DEG) continue;
+    if (!keep(name) && angleBetween(q, bone.rest.rotation) * DEG < MOVED_DEG) {
+      continue;
+    }
 
     rotation[name] = normalize(q).map(round);
   }
