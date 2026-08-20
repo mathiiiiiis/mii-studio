@@ -57,6 +57,12 @@ npm test                # run test suite
 - [x] 2 viewport, grab a bone and rotate it
 - [x] 3 export and validate
 - [x] 4 timeline, clips and ambient loops
+- [ ] 6 vue shell, commands registry replacing keydown chain
+- [ ] 7 rig extraction in the browser
+- [ ] 8 theme layer, tokens and so on
+- [ ] 9 components: pill, icon button, hover label, tab header, message box, etc.
+- [ ] 10 screens: pose / timeline / clips
+- [ ] 11 dashboard, multiple models, tiles
 
 ## Notes
 
