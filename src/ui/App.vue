@@ -1,11 +1,13 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
 import { createStudio } from "../viewer/studio.js";
-import { createReadout } from "../viewer/edit/readout.js";
-import { findCommand } from "./commands.js";
+import { findCommand } from "./state/commands.js";
+import { createStudioState } from "./state/studio.js";
+import Readout from "./panels/Readout.vue";
 
 const viewport = ref(null);
 const studio = shallowRef(null);
+const state = shallowRef(null);
 
 let teardown = null;
 
@@ -27,8 +29,7 @@ onMounted(async () => {
   const instance = await createStudio(viewport.value, { url: __MODEL_URL__ });
   studio.value = instance;
 
-  const readout = createReadout(instance.rig);
-  instance.onFrame(() => readout(instance.selected(), instance.animate));
+  state.value = createStudioState(instance);
 
   addEventListener("keydown", onKeydown);
   teardown = () => {
@@ -42,6 +43,7 @@ onBeforeUnmount(() => teardown?.());
 
 <template>
   <div ref="viewport" class="viewport"></div>
+  <Readout v-if="state" :state="state" :commands="studio.commands" />
 </template>
 
 <style lang="scss">
