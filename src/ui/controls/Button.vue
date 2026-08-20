@@ -21,6 +21,8 @@ defineEmits(["click"]);
 
 <style lang="scss" scoped>
 .pill {
+  --control-fill: var(--control-fill-default);
+  --control-edge: var(--control-edge-default);
   display: inline-flex;
   position: relative;
   align-items: center;
@@ -49,6 +51,7 @@ defineEmits(["click"]);
     content: "";
     position: absolute;
     inset: 0;
+    border-radius: inherit;
     background: linear-gradient(
       to bottom,
       rgb(255 255 255 / 82%) 8%,
@@ -62,10 +65,6 @@ defineEmits(["click"]);
     -webkit-mask-size: 100% 100%;
     filter: blur(0.5px);
     pointer-events: none;
-  }
-
-  > * {
-    position: relative;
   }
 
   &:hover {
@@ -85,13 +84,13 @@ defineEmits(["click"]);
     pointer-events: none;
   }
 
-  &[data-variant="menu"] {
-    border-color: var(--aceent-edge-top);
-    border-bottom-color: var(--aceent-edge-bottom);
-  }
-
   &[data-variant="alt"] {
-    border-color: var(--control-line);
+    --control-edge: linear-gradient(
+      to bottom,
+      var(--control-line),
+      var(--control-line)
+    );
+    --control-fill: var(--control-fill-alt);
   }
 }
 </style>

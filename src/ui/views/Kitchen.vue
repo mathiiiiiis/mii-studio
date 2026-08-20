@@ -25,7 +25,7 @@ const variants = ["Settings", "Menu", "Alt"];
         <Button
           v-for="variant in variants"
           :key="variant"
-          :variant="variant"
+          :variant="variant.toLocaleLowerCase()"
           :disabled="disabled"
           @click="last = `clicked ${variant}`"
         >
