@@ -11,7 +11,7 @@ import { createLoad } from "./edit/load.js";
 import { createAnimate } from "./edit/animate.js";
 
 //injectable prompt for commands that need a name
-const defaultAsk = (message, initial) => window.prompt(message, initial);
+const defaultAsk = async (message, initial) => window.prompt(message, initial);
 
 export async function createStudio(container, { url, ask = defaultAsk } = {}) {
   const stage = createScene(container);
@@ -64,7 +64,7 @@ export async function createStudio(container, { url, ask = defaultAsk } = {}) {
   gizmo.onDragStart(() => history.push(selected()));
 
   const exportPose = async () => {
-    const name = ask("pose name");
+    const name = await ask("pose name");
     if (!name) return;
 
     const result = await save(name);
@@ -72,14 +72,14 @@ export async function createStudio(container, { url, ask = defaultAsk } = {}) {
   };
 
   const loadPose = async () => {
-    const name = ask("pose name");
+    const name = await ask("pose name");
     if (!name) return;
 
     return { name, ...(await load(name)) };
   };
 
-  function setDuration() {
-    const ms = Number(ask("duration in ms", animate.timeline.duration));
+  async function setDuration() {
+    const ms = Number(await ask("duration in ms", animate.timeline.duration));
     if (Number.isFinite(ms) && ms > 0) animate.setDuration(ms);
   }
 

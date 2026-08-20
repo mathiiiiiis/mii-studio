@@ -3,11 +3,14 @@ import { onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
 import { createStudio } from "../../viewer/studio.js";
 import { findCommand } from "../state/commands.js";
 import { createStudioState } from "../state/studio.js";
+import { createDialog } from "../state/dialog.js";
 import Readout from "../panels/Readout.vue";
+import Dialog from "../controls/Dialog.vue";
 
 const viewport = ref(null);
 const studio = shallowRef(null);
 const state = shallowRef(null);
+const dialog = createDialog();
 
 let teardown = null;
 
@@ -26,7 +29,10 @@ async function onKeydown(event) {
 }
 
 onMounted(async () => {
-  const instance = await createStudio(viewport.value, { url: __MODEL_URL__ });
+  const instance = await createStudio(viewport.value, {
+    url: __MODEL_URL__,
+    ask: dialog.ask,
+  });
   studio.value = instance;
 
   state.value = createStudioState(instance);
@@ -44,6 +50,7 @@ onBeforeUnmount(() => teardown?.());
 <template>
   <div ref="viewport" class="viewport"></div>
   <Readout v-if="state" :state="state" :commands="studio.commands" />
+  <Dialog :dialog="dialog" />
 </template>
 
 <style lang="scss" scoped>

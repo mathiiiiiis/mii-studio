@@ -13,6 +13,7 @@
   --ink: #{p.$white};
   --ink-strong: #{p.$white};
   --ink-muted: #{p.$ink-faint};
+  --ink-soft: #{p.$ink-soft};
   --ink-faint: #{p.$ink-dim};
   --ink-on-control: #{p.$ink};
 
@@ -31,6 +32,7 @@
   --ink: #{p.$ink};
   --ink-strong: #{p.$ink-strong};
   --ink-muted: #{p.$ink-body};
+  --ink-soft: #{p.$ink-soft};
   --ink-faint: #{p.$ink-dim};
   --ink-on-control: #{p.$ink};
 
@@ -85,6 +87,15 @@
     #bac7c7 100%
   );
   --control-gloss: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 134' preserveAspectRatio='none'%3E%3Cpath fill='%23fff' d='M67,11 L362.5,11 A19.5,19.5 0 0 1 362.5,50 L65.5,50 A49.5,49.5 0 0 0 16.6,91.5 A56,56 0 0 1 67,11 Z'/%3E%3C/svg%3E");
+
+  --line-band: 3px;
+  --line-strengh: 6%;
+  --surface-lines: repeating-linear-gradient(
+    to bottom,
+    rgb(0 0 0 / var(--line-strengh)) 0 var(--line-band),
+    rgb(0 0 0 / 0%) var(--line-band) calc(var(--line-band) * 2)
+  );
+
   --band: #{p.$band};
 
   --lift: 0 0.5vh 1vh rgb(170 170 170 / 53%);
