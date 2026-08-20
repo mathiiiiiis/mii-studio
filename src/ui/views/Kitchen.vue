@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import Button from "../controls/Button.vue";
+import IconButton from "../controls/IconButton.vue";
+import { iconNames } from "../theme/icons/index.js";
 
 const surface = ref("black");
 const disabled = ref(false);
@@ -13,7 +15,7 @@ const variants = ["Default", "Alt"];
   <div class="kitchen" :data-surface="surface">
     <div class="bar">
       <button @click="surface = surface === 'black' ? 'paper' : 'black'">
-        surface: {{ disabled }}
+        surface: {{ surface }}
       </button>
       <RouterLink to="/">studio (root)</RouterLink>
       <span class="last">{{ last }}</span>
@@ -31,6 +33,19 @@ const variants = ["Default", "Alt"];
         >
           {{ variant }}
         </Button>
+      </div>
+    </section>
+
+    <section>
+      <h2>IconButton</h2>
+      <div class="row">
+        <IconButton
+          v-for="name in iconNames"
+          :key="name"
+          :name="name"
+          :disabled="disabled"
+          @click="last = `clicked ${name}`"
+        />
       </div>
     </section>
   </div>

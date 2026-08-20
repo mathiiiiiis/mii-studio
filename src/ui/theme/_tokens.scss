@@ -48,7 +48,7 @@
   --accent-mid: #{p.$blue-mid};
 
   --control-line: #{p.$btn-alt-line};
-  --control-height: clamp(2.75rem, 6vh, 3.5rem);
+  --control-height: clamp(2.75rem, 6svh, 3.5rem);
   --control-edge-default: linear-gradient(
     to bottom,
     #51c3ea,
