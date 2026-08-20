@@ -6,6 +6,12 @@
 @use "./theme/index.scss";
 @use "./theme/_typography.scss" as typography;
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
