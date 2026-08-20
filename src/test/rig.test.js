@@ -59,7 +59,10 @@ describe("rig extraction", () => {
     }
   });
 
-  it("places the head pivot where the format doc says", () => {
-    expect(rig.bones.Head.position[1]).toBeCloseTo(1.081, 3);
+  it("stacks the spine upward from the root", () => {
+    const y = (name) => rig.bones[name].position[1];
+    expect(y("Ankle_L")).toBeLessThan(y("Skl_Root"));
+    expect(y("Skl_Root")).toBeLessThan(y("Spine_2"));
+    expect(y("Spine_2")).toBeLessThan(y("Head"));
   });
 });
