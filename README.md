@@ -76,7 +76,7 @@ Not one single line.
   for the constraints behind the design language
 - [ariankordi/FFL.js](https://github.com/ariankordi/FFL.js) for `LUTShaderMaterial`
 - [datkat21/mii-creator](https://github.com/datkat21/mii-creator) for the clips
-  in `fixtures/poses.json`. (https://mii.nxw.pw/)
+  in `fixtures/poses.json`. [Mii Creator Website](https://mii.nxw.pw/)
 - [jerosajose/onliine](https://github.com/jerosajose/onliine) sampled for interface
   colours and geometry
 
