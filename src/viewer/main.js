@@ -1,128 +1,24 @@
-import { createScene } from "./render/scene.js";
-import { loadModel, createJoints } from "./render/skeleton.js";
-import { createPicking } from "./edit/picking.js";
-import { createGizmo } from "./edit/gizmo.js";
+import { createStudio } from "./studio.js";
 import { createReadout } from "./edit/readout.js";
-import { createHistory } from "./edit/history.js";
-import { createSave } from "./edit/save.js";
-import { createLoad } from "./edit/load.js";
-import { createAnimate } from "./edit/animate.js";
-import { createMaterials } from "./render/materials.js";
-import { createIcon } from "./render/icon.js";
-import { frameModel } from "./render/framing.js";
-import rig from "../../rig.json";
+import { findCommand } from "../ui/commands.js";
 
-const container = document.getElementById("viewport");
-const {
-  renderer,
-  scene,
-  camera,
-  controls,
-  grid,
-  onFrame,
-  onResize,
-  setColorSpace,
-} = createScene(container);
-
-const model = await loadModel(__MODEL_URL__);
-scene.add(model);
-
-// nw4f_root is model transform, not a joint. All poses leave it
-// untouched. rotating it turns the whole Mii
-const posable = rig.poseBones.filter((n) => n !== "nw4f_root");
-
-const joints = createJoints(model, posable);
-scene.add(joints.group);
-onFrame(joints.sync);
-onResize((w, h) => joints.resize(w, h));
-
-const gizmo = createGizmo({ camera, renderer, scene, orbit: controls });
-const picking = createPicking({
-  renderer,
-  camera,
-  joints: joints.joints,
-  busy: gizmo.busy,
+const studio = await createStudio(document.getElementById("viewport"), {
+  url: __MODEL_URL__,
 });
 
-const history = createHistory(rig, model);
-const materials = createMaterials({ renderer, model, setColorSpace });
-const save = createSave(rig, model);
-const animate = createAnimate(rig, model);
-const load = createLoad(model, animate, history);
-onFrame(animate.tick);
-const icon = createIcon({
-  renderer,
-  scene,
-  camera,
-  controls,
-  model,
-  hide: [grid],
-  lines: joints,
-});
-const readout = createReadout(rig);
-
-const selected = () => picking.selected?.userData.bone ?? null;
-
-picking.onSelect((marker) => gizmo.attach(marker?.userData.bone ?? null));
-gizmo.onDragStart(() => history.push(selected()));
-onFrame(() => readout(selected(), animate));
+const readout = createReadout(studio.rig);
+studio.onFrame(() => readout(studio.selected(), studio.animate));
 
 addEventListener("keydown", (e) => {
   if (e.target !== document.body) return;
 
-  if (e.key === "z" && (e.ctrlKey || e.metaKey)) history.undo();
-  else if (e.key === "r") history.reset(selected());
-  else if (e.key === "R") history.resetAll();
-  else if (e.key === "m")
-    materials.toggle().catch((err) => console.error(err.message));
-  else if (e.key === "e") exportPose();
-  else if (e.key === "o") loadPose();
-  else if (e.key === "x")
-    console.log(`key at ${animate.time}, ${animate.record()} bones`);
-  else if (e.key === "a") animate.erase();
-  else if (e.key === " ") animate.toggle();
-  else if (e.key === "i") icon(512, null);
-  else if (e.key === "I") icon(512, "#ededed");
-  else if (e.key === "f") frameModel(camera, controls, model);
-  else if (e.key === "d") setDuration();
-  else if (e.key === "t")
-    animate.setType(animate.timeline.type === "clip" ? "ambient" : "clip");
-  else if (e.key === ",") animate.step(-1);
-  else if (e.key === ".") animate.step(1);
-  else if (e.key === "y") animate.jump(-1);
-  else if (e.key === "c") animate.jump(1);
-  else return;
+  const command = findCommand(studio.commands, e);
+  if (!command) return;
 
   e.preventDefault();
+  Promise.resolve(command.run()).catch((err) => console.error(err.message));
 });
 
-async function exportPose() {
-  const name = prompt("pose name");
-  if (!name) return;
-
-  const { written, bones, issues = [], error } = await save(name);
-  if (error) return console.error(error);
-
-  console.log(`${written ? "wrote" : "refused"} ${name}, ${bones} bones`);
-  for (const i of issues)
-    console[i.level === "error" ? "error" : "warn"](`${i.bone}: ${i.message}`);
-}
-
-async function loadPose() {
-  const name = prompt("pose name");
-  if (!name) return;
-
-  const { names, animated } = await load(name);
-  if (names) return console.warn(`no ${name}. have: ${names.join(" ")}`);
-
-  console.log(`loaded ${name}${animated ? " as a timeline" : ""}`);
-}
-
-function setDuration() {
-  const ms = Number(prompt("duration in ms", animate.timeline.duration));
-  if (Number.isFinite(ms) && ms > 0) animate.setDuration(ms);
-}
-
 console.info(
-  `${joints.joints.length} joints, shader ${__HAS_SHADER__ ? "available" : "off"}`,
+  `${studio.joints.joints.length} joints, shader ${__HAS_SHADER__ ? "available" : "off"}`,
 );
