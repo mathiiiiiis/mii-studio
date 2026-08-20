@@ -69,5 +69,5 @@ export function createScene() {
     renderer.render(scene, camera);
   });
 
-  return { renderer, scene, camera, controls, onFrame, setColorSpace };
+  return { renderer, scene, camera, controls, grid, onFrame, setColorSpace };
 }

@@ -7,10 +7,13 @@ import { createHistory } from "./edit/history.js";
 import { createSave } from "./edit/save.js";
 import { createAnimate } from "./edit/animate.js";
 import { createMaterials } from "./render/materials.js";
+import { createIcon } from "./render/icon.js";
 import rig from "../../rig.json";
 
-const { renderer, scene, camera, controls, onFrame, setColorSpace } =
+const { renderer, scene, camera, controls, grid, onFrame, setColorSpace } =
   createScene();
+
+const icon = createIcon({ renderer, scene, camera, hide: [grid] });
 
 const model = await loadModel(__MODEL_URL__);
 scene.add(model);
@@ -57,6 +60,7 @@ addEventListener("keydown", (e) => {
     console.log(`key at ${animate.time}, ${animate.record()} bones`);
   else if (e.key === "a") animate.erase();
   else if (e.key === " ") animate.toggle();
+  else if (e.key === "i") icon();
   else if (e.key === "d") setDuration();
   else if (e.key === "t")
     animate.setType(animate.timeline.type === "clip" ? "ambient" : "clip");

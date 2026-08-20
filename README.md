@@ -46,6 +46,7 @@ npm test                # run test suite
 - `.`: step forward 50ms
 - `a`: delete key
 - `space`: play/pause
+- `i`: save viewport as icon png
 
 ## TODO's / Phases
 

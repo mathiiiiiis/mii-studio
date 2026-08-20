@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 
 const JOINT_RADIUS = 0.022;
 
@@ -11,7 +12,8 @@ const MARKER_OFFSET = {
 };
 
 export async function loadModel(url) {
-  const gltf = await new GLTFLoader().loadAsync(url);
+  const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
+  const gltf = await loader.loadAsync(url);
   const model = gltf.scene;
   model.traverse((o) => {
     if (o.isMesh) o.frustumCulled = false;

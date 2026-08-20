@@ -20,6 +20,7 @@ const KEYS = [
   ["r R", "reset bone, reset all"],
   ["ctrl+z", "undo"],
   ["m", "lut shader"],
+  ["i", "save icon"],
 ];
 
 const PAD = Math.max(...KEYS.map(([k]) => k.length));
