@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import Button from "../controls/Button.vue";
 import IconButton from "../controls/IconButton.vue";
+import TabHeader from "../controls/TabHeader.vue";
 import { iconNames } from "../theme/icons/index.js";
 
 const surface = ref("black");
@@ -20,6 +21,12 @@ const variants = ["Default", "Alt"];
       <RouterLink to="/">studio (root)</RouterLink>
       <span class="last">{{ last }}</span>
     </div>
+
+    <section>
+      <h2>TabHeader</h2>
+      <TabHeader title="Mii Studio" version="Ver 0.1.0" />
+      <TabHeader title="Pose" />
+    </section>
 
     <section>
       <h2>Button</h2>
