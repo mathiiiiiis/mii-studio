@@ -55,13 +55,13 @@ npm test                # run test suite
 - [x] 2 viewport, grab a bone and rotate it
 - [x] 3 export and validate
 - [x] 4 timeline, clips and ambient loops
-- [x] 6 vue shell, commands registry replacing keydown chain
-- [x] 7 rig extraction in the browser
-- [x] 8 theme layer, tokens and so on
-  - [ ] 8.5 icons come when UI needs them
-- [ ] 9 components: pill, icon button, hover label, tab header, message box, etc.
-- [ ] 10 screens: pose / timeline / clips
-- [ ] 11 dashboard, multiple models, tiles
+- [x] 5 vue shell, commands registry replacing keydown chain
+- [x] 6 rig extraction in the browser
+- [x] 7 theme layer, tokens and so on
+  - [ ] 7.5 icons come when UI needs them
+- [ ] 8 components: pill, icon button, hover label, tab header, message box, etc.
+- [ ] 9 screens: pose / timeline / clips
+- [ ] 10 dashboard, multiple models, tiles
 
 ## Notes
 
