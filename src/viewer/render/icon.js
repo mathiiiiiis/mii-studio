@@ -4,7 +4,7 @@ const SIZE = 512;
 const BACKGROUND = "#ededed";
 const SUPERSAMPLE = 4;
 
-export function createIcon({ renderer, scene, camera, hide = [] }) {
+export function createIcon({ renderer, scene, camera, hide = [], lines }) {
   const previous = new THREE.Vector2();
 
   return async function capture(size = SIZE, background = BACKGROUND) {
@@ -22,6 +22,7 @@ export function createIcon({ renderer, scene, camera, hide = [] }) {
     //render a fixed square without changing the CSS size
     renderer.setPixelRatio(1);
     renderer.setSize(render, render, false);
+    lines?.resize(render, render, SUPERSAMPLE);
     camera.aspect = 1;
     camera.updateProjectionMatrix();
     renderer.render(scene, camera);
@@ -31,6 +32,7 @@ export function createIcon({ renderer, scene, camera, hide = [] }) {
 
     renderer.setPixelRatio(ratio);
     renderer.setSize(previous.x, previous.y, false);
+    lines?.resize(previous.x, previous.y);
     camera.aspect = aspect;
     camera.updateProjectionMatrix();
     scene.background = sceneBackground;

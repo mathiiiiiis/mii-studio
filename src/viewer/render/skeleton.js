@@ -1,8 +1,12 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
+import { LineSegments2 } from "three/examples/jsm/lines/webgpu/LineSegments2.js";
+import { LineSegmentsGeometry } from "three/examples/jsm/Addons.js";
+import { LineMaterial } from "three/examples/jsm/lines/LineMaterial.js";
 
 const JOINT_RADIUS = 0.022;
+const LINE_WIDTH = 3;
 
 // Skl_Root, Spine_1 and Waist overlap, causing raycasts to select the
 // wrong bone. Only the marker moves
@@ -52,9 +56,13 @@ export function createJoints(model, boneNames) {
     joints.push(marker);
   }
 
-  const links = new THREE.LineSegments(
-    new THREE.BufferGeometry(),
-    new THREE.LineBasicMaterial({ color: 0x6f7a8d, depthTest: false }),
+  const links = new LineSegments2(
+    new LineSegmentsGeometry(),
+    new LineMaterial({
+      color: 0x6f7a8d,
+      linewidth: LINE_WIDTH,
+      depthTest: false,
+    }),
   );
   links.renderOrder = 9;
   group.add(links);
@@ -67,10 +75,6 @@ export function createJoints(model, boneNames) {
   }
 
   const positions = new Float32Array(pairs.length * 6);
-  links.geometry.setAttribute(
-    "position",
-    new THREE.BufferAttribute(positions, 3),
-  );
 
   const spin = new THREE.Quaternion();
   const tmp = new THREE.Vector3();
@@ -90,8 +94,15 @@ export function createJoints(model, boneNames) {
       a.position.toArray(positions, i * 6);
       b.position.toArray(positions, i * 6 + 3);
     });
-    links.geometry.attributes.position.needsUpdate = true;
+    links.geometry.setPositions(positions);
   };
 
-  return { group, joints, sync };
+  const resize = (width, height, scale = 1) => {
+    links.material.resolution.set(width, height);
+    links.material.linewidth = LINE_WIDTH * scale;
+  };
+
+  resize(innerWidth, innerHeight);
+
+  return { group, joints, sync, resize };
 }

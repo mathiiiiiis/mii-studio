@@ -13,8 +13,6 @@ import rig from "../../rig.json";
 const { renderer, scene, camera, controls, grid, onFrame, setColorSpace } =
   createScene();
 
-const icon = createIcon({ renderer, scene, camera, hide: [grid] });
-
 const model = await loadModel(__MODEL_URL__);
 scene.add(model);
 
@@ -25,6 +23,7 @@ const posable = rig.poseBones.filter((n) => n !== "nw4f_root");
 const joints = createJoints(model, posable);
 scene.add(joints.group);
 onFrame(joints.sync);
+addEventListener("resize", () => joints.resize(innerWidth, innerHeight));
 
 const gizmo = createGizmo({ camera, renderer, scene, orbit: controls });
 const picking = createPicking({
@@ -39,6 +38,7 @@ const materials = createMaterials({ renderer, model, setColorSpace });
 const save = createSave(rig, model);
 const animate = createAnimate(rig, model);
 onFrame(animate.tick);
+const icon = createIcon({ renderer, scene, camera, hide: [grid] });
 const readout = createReadout(rig);
 
 const selected = () => picking.selected?.userData.bone ?? null;
