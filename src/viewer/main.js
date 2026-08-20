@@ -5,6 +5,7 @@ import { createGizmo } from "./edit/gizmo.js";
 import { createReadout } from "./edit/readout.js";
 import { createHistory } from "./edit/history.js";
 import { createSave } from "./edit/save.js";
+import { createLoad } from "./edit/load.js";
 import { createAnimate } from "./edit/animate.js";
 import { createMaterials } from "./render/materials.js";
 import { createIcon } from "./render/icon.js";
@@ -38,6 +39,7 @@ const history = createHistory(rig, model);
 const materials = createMaterials({ renderer, model, setColorSpace });
 const save = createSave(rig, model);
 const animate = createAnimate(rig, model);
+const load = createLoad(model, animate, history);
 onFrame(animate.tick);
 const icon = createIcon({
   renderer,
@@ -46,6 +48,7 @@ const icon = createIcon({
   controls,
   model,
   hide: [grid],
+  lines: joints,
 });
 const readout = createReadout(rig);
 
@@ -64,6 +67,7 @@ addEventListener("keydown", (e) => {
   else if (e.key === "m")
     materials.toggle().catch((err) => console.error(err.message));
   else if (e.key === "e") exportPose();
+  else if (e.key === "o") loadPose();
   else if (e.key === "x")
     console.log(`key at ${animate.time}, ${animate.record()} bones`);
   else if (e.key === "a") animate.erase();
@@ -75,8 +79,8 @@ addEventListener("keydown", (e) => {
     animate.setType(animate.timeline.type === "clip" ? "ambient" : "clip");
   else if (e.key === ",") animate.step(-1);
   else if (e.key === ".") animate.step(1);
-  else if (e.key === "y") animate.step(-1);
-  else if (e.key === "c") animate.step(1);
+  else if (e.key === "y") animate.jump(-1);
+  else if (e.key === "c") animate.jump(1);
   else return;
 
   e.preventDefault();
@@ -94,9 +98,19 @@ async function exportPose() {
     console[i.level === "error" ? "error" : "warn"](`${i.bone}: ${i.message}`);
 }
 
+async function loadPose() {
+  const name = prompt("pose name");
+  if (!name) return;
+
+  const { names, animated } = await load(name);
+  if (names) return console.warn(`no ${name}. have: ${names.join(" ")}`);
+
+  console.log(`loaded ${name}${animated ? " as a timeline" : ""}`);
+}
+
 function setDuration() {
   const ms = Number(prompt("duration in ms", animate.timeline.duration));
-  if (Number.isFinite(ms) & (ms > 0)) animate.setDuration(ms);
+  if (Number.isFinite(ms) && ms > 0) animate.setDuration(ms);
 }
 
 console.info(

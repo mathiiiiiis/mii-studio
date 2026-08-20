@@ -17,6 +17,7 @@ const KEYS = [
   ["space", "play/pause"],
   ["t d", "type, duration"],
   ["e", "export"],
+  ["o", "load pose"],
   ["r R", "reset bone, reset all"],
   ["ctrl+z", "undo"],
   ["m", "lut shader"],
