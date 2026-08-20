@@ -53,7 +53,7 @@ npm test                run test suite
 - [x] 1 world to local space conversion
 - [x] 2 viewport, grab a bone and rotate it
 - [x] 3 export and validate
-- [ ] 4 timeline, clips and ambient loops
+- [x] 4 timeline, clips and ambient loops
 
 ## Notes
 
