@@ -1,0 +1,65 @@
+@use "palette" as p;
+
+@mixin black {
+  --surface: #{p.$black};
+  --surface-stage: #{p.$stage};
+  --surface-bar: #{p.$black};
+  --surface-card: #{p.$paper};
+  --surface-control: #{p.$white};
+  --surface-control-lo: #{p.$paper-hi};
+
+  --ink: #{p.$white};
+  --ink-strong: #{p.$white};
+  --ink-mute: #{p.$ink-faint};
+  --ink-faint: #{p.$ink-dim};
+  --ink-on-control: #{p.$ink};
+
+  --line: #{p.$line-soft};
+  --line-strong: #{p.$line};
+}
+
+@mixin paper {
+  --surface: #{p.$paper};
+  --surface-stage: #{p.$paper};
+  --surface-bar: #{p.$bar};
+  --surface-card: #{p.$white};
+  --surface-card: #{p.$btn-hi};
+  --surface-control-lo: #{p.$btn-lo};
+
+  --ink: #{p.$ink};
+  --ink-strong: #{p.$ink-strong};
+  --ink-muted: #{p.$ink-body};
+  --ink-faint: #{p.$ink-dim};
+  --ink-on-control: #{p.$ink};
+
+  --line: #{p.$line};
+  --line-strong: #{p.$line};
+}
+
+@mixin constants {
+  --accent: #{p.$blue};
+  --accent-glow: #{p.$blue-glow};
+  --accent-edge-top: #{p.$blue-edge-top};
+  --accent-edge-bottom: #{p.$blue-edge-bottom};
+  --accent-text: #{p.$blue-text};
+  --accent-deep: #{p.$blue-deep};
+  --accent-mid: #{p.$blue-mid};
+
+  --control-line: #{p.$btn-alt-line};
+  --band: #{p.$band};
+
+  --lift: 0 0.5vh 1vh rgb(170 170 170 / 53%);
+
+  --radius-control: 999px;
+  --radius-card: 1vw;
+  --radius-tile: 7.7%;
+}
+
+:root {
+  @include constants;
+  @include black;
+}
+
+[data-surface="paper"] {
+  @include paper;
+}

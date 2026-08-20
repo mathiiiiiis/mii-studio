@@ -47,11 +47,13 @@ onBeforeUnmount(() => teardown?.());
 </template>
 
 <style lang="scss">
+@use "./theme/index.scss";
+
 html,
 body {
   margin: 0;
   height: 100%;
-  background: #16181d;
+  background: var(--surface);
 }
 
 #app {
