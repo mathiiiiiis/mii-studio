@@ -34,7 +34,11 @@ export function poses() {
           res.end(JSON.stringify(body));
         };
 
-        if (req.method !== "POST") return send(405, { error: "post only" });
+        const current = () =>
+          existsSync(output) ? JSON.parse(readFileSync(output, "utf8")) : {};
+
+        if (req.method === "GET") return send(200, current());
+        if (req.method !== "POST") return send(405, { error: "get or post" });
 
         let payload;
         try {
@@ -51,10 +55,7 @@ export function poses() {
         if (hasErrors(issues)) return send(422, { written: false, issues });
 
         //merge, file holds every pose
-        const existing = existsSync(output)
-          ? JSON.parse(readFileSync(output, "utf8"))
-          : {};
-
+        const existing = current();
         existing[name] = pose;
 
         mkdirSync(dirname(output), { recursive: true });
