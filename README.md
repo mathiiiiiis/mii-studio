@@ -29,7 +29,7 @@ a build writes straight into `src/assets`.
 ```bash
 npm run rig             # write rig.json from configured model
 npm run rig -- --table  # print local axis table
-npm test                run test suite
+npm test                # run test suite
 ```
 
 ## Keybinds
@@ -57,8 +57,8 @@ npm test                run test suite
 
 ## Notes
 
-This was mainly coded to make the progress easier--for me--to add animations
-to my website--this is the reason for the .json output.
+This was mainly coded to make the progress easier for me to add new annimations
+to my website! But maybe I will turn it into something bigger, who knows
 
 No AI was/will be used in the progress of creating this.
 Not one single line.
