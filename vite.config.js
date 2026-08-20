@@ -2,6 +2,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, isAbsolute, relative } from "node:path";
 import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 import { poses } from "./vite-plugin-poses.js";
 
 const root = dirname(fileURLToPath(import.meta.url));
@@ -13,7 +14,7 @@ const model = config.model ?? "assets/mii.glb";
 const shader = config.shader ? resolve(root, config.shader) : null;
 
 export default defineConfig({
-  plugins: [poses()],
+  plugins: [vue(), poses()],
   server: {
     fs: { allow: [root, ...(shader ? [dirname(shader)] : [])] },
   },
