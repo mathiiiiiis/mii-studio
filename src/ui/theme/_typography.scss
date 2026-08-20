@@ -1,0 +1,24 @@
+@mixin type {
+  --font:
+    "FOT-RodingNTLG Pro DB", "Roding NTLG Pro", "Zen Kaku Gothic New",
+    "M PLUS 1p", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --text-title: clamp(1.25rem, 2.6vw, 2.25rem);
+  --text-control: clamp(1rem, 2vw, 1.75rem);
+  --text-body: clamp(0.875rem, 1.6vw, 1.375rem);
+  --text-caption: clamp(0.75rem, 1.25vm, 1.125rem);
+
+  --leading-tight: 1.2;
+  --leading-body: 1.7;
+  --tracking-copy: 0.02rem;
+}
+
+@mixin base {
+  font-family: var(--font);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

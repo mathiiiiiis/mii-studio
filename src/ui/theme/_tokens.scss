@@ -1,4 +1,5 @@
 @use "palette" as p;
+@use "typography";
 
 @mixin black {
   --surface: #{p.$black};
@@ -57,6 +58,7 @@
 
 :root {
   @include constants;
+  @include typography.type;
   @include black;
 }
 

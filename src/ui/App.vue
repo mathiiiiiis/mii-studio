@@ -48,12 +48,17 @@ onBeforeUnmount(() => teardown?.());
 
 <style lang="scss">
 @use "./theme/index.scss";
+@use "./theme/_typography.scss" as typography;
 
 html,
 body {
   margin: 0;
   height: 100%;
   background: var(--surface);
+}
+
+body {
+  @include typography.base;
 }
 
 #app {
