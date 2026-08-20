@@ -19,11 +19,11 @@ defineEmits(["click"]);
     :data-variant="variant"
     :disabled="disabled"
     :aria-label="label || name"
-    :title="label || name"
     type="button"
     @click="$emit('click', $event)"
   >
     <Icon class="glyph" :name="name" :weight="weight" :flip="flip" />
+    <span class="hover-label">{{ label || name }}</span>
   </button>
 </template>
 
@@ -72,6 +72,12 @@ defineEmits(["click"]);
     pointer-events: none;
   }
 
+  &:hover .hover-label,
+  &:focus-visible .hover-label {
+    opacity: 1;
+    transition-delay: var(--delay-label);
+  }
+
   &[data-variant="alt"] {
     --control-edge: linear-gradient(
       to bottom,
@@ -80,5 +86,24 @@ defineEmits(["click"]);
     );
     --control-fill: var(--control-fill-alt);
   }
+}
+
+.hover-label {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 2;
+  padding: 0.25em 0.7em;
+  border-radius: var(--radius-control);
+  background: var(--surface-card);
+  color: var(--ink-on-control);
+  box-shadow: var(--lift);
+  font-size: var(--text-caption);
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--time-label) linear;
 }
 </style>
