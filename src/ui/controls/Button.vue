@@ -1,6 +1,7 @@
 <script setup>
 defineProps({
   variant: { type: String, default: "default" },
+  type: { type: String, default: "button" },
   disabled: { type: Boolean, default: false },
 });
 
@@ -12,7 +13,7 @@ defineEmits(["click"]);
     class="pill"
     :data-variant="variant"
     :disabled="disabled"
-    type="button"
+    :type="type"
     @click="$emit('click', $event)"
   >
     <span class="label"><slot /></span>
