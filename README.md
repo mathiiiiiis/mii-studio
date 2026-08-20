@@ -58,7 +58,7 @@ npm test                # run test suite
 - [x] 5 vue shell, commands registry replacing keydown chain
 - [x] 6 rig extraction in the browser
 - [x] 7 theme layer, tokens and so on
-  - [ ] 7.5 icons come when UI needs them
+  - [x] 7.5 icons come when UI needs them
 - [ ] 8 components: pill, icon button, hover label, tab header, message box, etc.
 - [ ] 9 screens: pose / timeline / clips
 - [ ] 10 dashboard, multiple models, tiles
@@ -80,5 +80,7 @@ Not one single line.
   in `fixtures/poses.json`. [Mii Creator Website](https://mii.nxw.pw/)
 - [jerosajose/onliine](https://github.com/jerosajose/onliine) sampled for interface
   colours and geometry
+- [appsono/sono-new](https://github.com/appsono/sono-new) for many of the icons
+  (why am I crediting my own work lol)
 
 Mii is a trademark of Nintendo. Not affiliated with Nintendo.
