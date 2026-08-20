@@ -39,6 +39,7 @@ npm test                # run test suite
 - `ctrl+z`: steps back one drag at a time
 - `m`: toggle on/off lut shader material
 - `e`: export pose
+- `o`: load a pose
 - `y`: previous key
 - `x`: record
 - `c`: next key
@@ -46,7 +47,8 @@ npm test                # run test suite
 - `.`: step forward 50ms
 - `a`: delete key
 - `space`: play/pause
-- `i`: save viewport as icon png
+- `i`: save as icon without background
+- `shift + i`: save as icon with background
 
 ## TODO's / Phases
 
