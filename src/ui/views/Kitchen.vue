@@ -6,7 +6,7 @@ const surface = ref("black");
 const disabled = ref(false);
 const last = ref("");
 
-const variants = ["Settings", "Menu", "Alt"];
+const variants = ["Default", "Alt"];
 </script>
 
 <template>

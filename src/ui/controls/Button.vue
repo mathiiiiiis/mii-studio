@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-  variant: { type: String, default: "settings" },
+  variant: { type: String, default: "default" },
   disabled: { type: Boolean, default: false },
 });
 
