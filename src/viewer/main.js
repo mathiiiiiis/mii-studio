@@ -12,8 +12,17 @@ import { createIcon } from "./render/icon.js";
 import { frameModel } from "./render/framing.js";
 import rig from "../../rig.json";
 
-const { renderer, scene, camera, controls, grid, onFrame, setColorSpace } =
-  createScene();
+const container = document.getElementById("viewport");
+const {
+  renderer,
+  scene,
+  camera,
+  controls,
+  grid,
+  onFrame,
+  onResize,
+  setColorSpace,
+} = createScene(container);
 
 const model = await loadModel(__MODEL_URL__);
 scene.add(model);
@@ -25,7 +34,7 @@ const posable = rig.poseBones.filter((n) => n !== "nw4f_root");
 const joints = createJoints(model, posable);
 scene.add(joints.group);
 onFrame(joints.sync);
-addEventListener("resize", () => joints.resize(innerWidth, innerHeight));
+onResize((w, h) => joints.resize(w, h));
 
 const gizmo = createGizmo({ camera, renderer, scene, orbit: controls });
 const picking = createPicking({

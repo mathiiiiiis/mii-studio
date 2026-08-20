@@ -22,10 +22,10 @@ function createGrid() {
   );
 }
 
-export function createScene() {
+export function createScene(container) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-  document.body.append(renderer.domElement);
+  container.append(renderer.domElement);
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(BACKGROUND);
@@ -50,18 +50,24 @@ export function createScene() {
     grid.material.color.setHex(GRID, space);
   };
 
+  const perFrame = [];
+  const perResize = [];
+
   const resize = () => {
-    const w = innerWidth;
-    const h = innerHeight;
+    const w = container.clientWidth;
+    const h = container.clientHeight;
+    if (!w || !h) return;
+
     renderer.setSize(w, h);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+    for (const fn of perResize) fn(w, h);
   };
-  addEventListener("resize", resize);
-  resize();
 
-  const perFrame = [];
-  const onFrame = (fn) => perFrame.push(fn);
+  //observe container size
+  const observer = new ResizeObserver(resize);
+  observer.observe(container);
+  resize();
 
   renderer.setAnimationLoop(() => {
     controls.update();
@@ -69,5 +75,26 @@ export function createScene() {
     renderer.render(scene, camera);
   });
 
-  return { renderer, scene, camera, controls, grid, onFrame, setColorSpace };
+  const dispose = () => {
+    observer.disconnect();
+    renderer.setAnimationLoop(null);
+    controls.dispose();
+    grid.geometry.dispose();
+    grid.material.dispose();
+    renderer.domElement.remove();
+    perFrame.length = 0;
+    perResize.length = 0;
+  };
+
+  return {
+    renderer,
+    scene,
+    camera,
+    controls,
+    grid,
+    onFrame: (fn) => perFrame.push(fn),
+    onResize: (fn) => perResize.push(fn),
+    setColorSpace,
+    dispose,
+  };
 }
