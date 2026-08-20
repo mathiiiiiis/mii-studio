@@ -4,6 +4,7 @@ import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.j
 import { LineSegments2 } from "three/examples/jsm/lines/webgpu/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/examples/jsm/Addons.js";
 import { LineMaterial } from "three/examples/jsm/lines/LineMaterial.js";
+import { buildRig } from "../../rig.js";
 
 const JOINT_RADIUS = 0.022;
 const LINE_WIDTH = 3;
@@ -22,7 +23,8 @@ export async function loadModel(url) {
   model.traverse((o) => {
     if (o.isMesh) o.frustumCulled = false;
   });
-  return model;
+  //reuse parsed gltf json
+  return { model, rig: { source: url, ...buildRig(gltf.parser.json) } };
 }
 
 export function createJoints(model, boneNames) {

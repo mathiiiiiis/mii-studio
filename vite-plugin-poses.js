@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
-import { loadRig } from "./src/rig.js";
+import { loadRig } from "./src/rig.node.js";
 import { validateEntry, hasErrors } from "./src/pose/validate.js";
 import { formatPoses } from "./src/pose/format.js";
 import { loadConfig } from "./src/config.js";

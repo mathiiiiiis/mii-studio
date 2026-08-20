@@ -9,11 +9,6 @@ import { createHistory } from "./edit/history.js";
 import { createSave } from "./edit/save.js";
 import { createLoad } from "./edit/load.js";
 import { createAnimate } from "./edit/animate.js";
-import rig from "../../rig.json";
-
-// nw4f_root is model transform, not a joint. All poses leave it
-// untouched. rotating it turns the whole Mii
-const posable = rig.poseBones.filter((n) => n !== "nw4f_root");
 
 //injectable prompt for commands that need a name
 const defaultAsk = (message, initial) => window.prompt(message, initial);
@@ -22,8 +17,12 @@ export async function createStudio(container, { url, ask = defaultAsk } = {}) {
   const stage = createScene(container);
   const { renderer, scene, camera, controls, grid, onFrame, onResize } = stage;
 
-  const model = await loadModel(url);
+  const { model, rig } = await loadModel(url);
   scene.add(model);
+
+  // nw4f_root is model transform, not a joint. All poses leave it
+  // untouched. rotating it turns the whole Mii
+  const posable = rig.poseBones.filter((n) => n !== "nw4f_root");
 
   const joints = createJoints(model, posable);
   scene.add(joints.group);

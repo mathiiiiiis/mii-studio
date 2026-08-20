@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { createTimeline } from "../anim/timeline.js";
 import { toDelta, fromDelta } from "../anim/additive.js";
-import { loadRig } from "../rig.js";
+import { loadRig } from "../rig.node.js";
 import { angleBetween, DEG } from "../math/quat.js";
 
 const rig = loadRig();

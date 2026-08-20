@@ -1,6 +1,4 @@
-import { readFileSync } from "node:fs";
 import { mul, rotateVec } from "./math/quat.js";
-import { loadConfig } from "./config.js";
 
 const GLB_MAGIC = 0x46546c67;
 const CHUNK_JSON = 0x4e4f534a;
@@ -116,12 +114,6 @@ export function buildRig(gltf) {
     groups,
     poseBones: POSE_BONES.filter((n) => bones[n]),
   };
-}
-
-export function loadRig(path) {
-  const model = path ?? loadConfig().model;
-  const { json } = parseGlb(readFileSync(model));
-  return { source: model, ...buildRig(json) };
 }
 
 function axisLabel(v) {

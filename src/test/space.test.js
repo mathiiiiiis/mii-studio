@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { loadRig } from "../rig.js";
+import { loadRig } from "../rig.node.js";
 import { angleBetween, rotateVec, DEG } from "../math/quat.js";
 import {
   toLocal,

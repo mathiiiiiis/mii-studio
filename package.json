@@ -5,8 +5,8 @@
   "type": "module",
   "description": "pose and animation authoring for Mii Creator Miis (not affiliated)",
   "scripts": {
-    "build": "npm run rig --silent && vite build",
-    "dev": "npm run rig --silent && vite",
+    "build": "vite build",
+    "dev": "vite",
     "rig": "node bin/dump-rig.js",
     "read": "node bin/read-pose.js",
     "ranges": "node bin/dump-ranges.js",

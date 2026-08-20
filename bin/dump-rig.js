@@ -1,6 +1,6 @@
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { loadRig } from "../src/rig.js";
+import { loadRig } from "../src/rig.node.js";
 import { ROOT } from "../src/config.js";
 
 const args = process.argv.slice(2);
