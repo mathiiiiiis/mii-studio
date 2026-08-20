@@ -8,6 +8,7 @@ import { createSave } from "./edit/save.js";
 import { createAnimate } from "./edit/animate.js";
 import { createMaterials } from "./render/materials.js";
 import { createIcon } from "./render/icon.js";
+import { frameModel } from "./render/framing.js";
 import rig from "../../rig.json";
 
 const { renderer, scene, camera, controls, grid, onFrame, setColorSpace } =
@@ -38,7 +39,14 @@ const materials = createMaterials({ renderer, model, setColorSpace });
 const save = createSave(rig, model);
 const animate = createAnimate(rig, model);
 onFrame(animate.tick);
-const icon = createIcon({ renderer, scene, camera, hide: [grid] });
+const icon = createIcon({
+  renderer,
+  scene,
+  camera,
+  controls,
+  model,
+  hide: [grid],
+});
 const readout = createReadout(rig);
 
 const selected = () => picking.selected?.userData.bone ?? null;
@@ -61,6 +69,7 @@ addEventListener("keydown", (e) => {
   else if (e.key === "a") animate.erase();
   else if (e.key === " ") animate.toggle();
   else if (e.key === "i") icon();
+  else if (e.key === "f") frameModel(camera, controls, model);
   else if (e.key === "d") setDuration();
   else if (e.key === "t")
     animate.setType(animate.timeline.type === "clip" ? "ambient" : "clip");

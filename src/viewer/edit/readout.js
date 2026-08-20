@@ -21,6 +21,7 @@ const KEYS = [
   ["ctrl+z", "undo"],
   ["m", "lut shader"],
   ["i", "save icon"],
+  ["f", "frame model"],
 ];
 
 const PAD = Math.max(...KEYS.map(([k]) => k.length));

@@ -1,10 +1,19 @@
 import * as THREE from "three";
+import { frameModel } from "./framing.js";
 
 const SIZE = 512;
 const BACKGROUND = "#ededed";
 const SUPERSAMPLE = 4;
 
-export function createIcon({ renderer, scene, camera, hide = [], lines }) {
+export function createIcon({
+  renderer,
+  scene,
+  camera,
+  controls,
+  model,
+  hide = [],
+  lines,
+}) {
   const previous = new THREE.Vector2();
 
   return async function capture(size = SIZE, background = BACKGROUND) {
@@ -13,6 +22,8 @@ export function createIcon({ renderer, scene, camera, hide = [], lines }) {
     const hidden = hide.map((o) => o.visible);
     const sceneBackground = scene.background;
     const render = size * SUPERSAMPLE;
+    const position = camera.position.clone();
+    const look = controls.target.clone();
     renderer.getSize(previous);
 
     for (const o of hide) o.visible = false;
@@ -25,6 +36,7 @@ export function createIcon({ renderer, scene, camera, hide = [], lines }) {
     lines?.resize(render, render, SUPERSAMPLE);
     camera.aspect = 1;
     camera.updateProjectionMatrix();
+    frameModel(camera, controls, model);
     renderer.render(scene, camera);
 
     //read buffer before its cleared
@@ -36,6 +48,9 @@ export function createIcon({ renderer, scene, camera, hide = [], lines }) {
     camera.aspect = aspect;
     camera.updateProjectionMatrix();
     scene.background = sceneBackground;
+    camera.position.copy(position);
+    controls.target.copy(look);
+    controls.update();
     hide.forEach((o, i) => (o.visible = hidden[i]));
 
     const image = new Image();
@@ -48,7 +63,7 @@ export function createIcon({ renderer, scene, camera, hide = [], lines }) {
 
     const ctx = canvas.getContext("2d");
     ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = true;
+    ctx.imageSmoothingQuality = "high";
     ctx.beginPath();
     ctx.roundRect(0, 0, size, size);
     ctx.clip();
