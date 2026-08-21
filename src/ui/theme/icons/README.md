@@ -9,3 +9,5 @@ Only new icons are:
 - undo
 - frame
 - camera
+- minus
+- arrow

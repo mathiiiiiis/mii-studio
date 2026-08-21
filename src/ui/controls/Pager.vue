@@ -1,5 +1,6 @@
 <script setup>
 import { ref, useId } from "vue";
+import Icon from "./Icon.vue";
 
 const props = defineProps({
   pages: { type: Number, required: true },
@@ -8,7 +9,6 @@ const props = defineProps({
 const page = defineModel("page", { type: Number, default: 1 });
 
 const fill = `${useId()}dart`;
-const dart = "M2 1 Q13 12 24 21 Q13 32 2 43 Q8 22 2 1 Z";
 
 const flash = ref(0);
 const kick = ref(0);
@@ -44,13 +44,14 @@ const leave = (step) => {
       @mouseleave="leave(-1)"
     >
       <span class="disc">
-        <svg class="sign" viewBox="0 0 24 24">
-          <rect x="3" y="10.5" width="18" height="3" rx="1.5" />
-        </svg>
+        <Icon class="sign" name="minus" />
       </span>
-      <svg class="dart" viewBox="0 0 25 44">
-        <path :d="dart" :fill="`url(#${fill})`" />
-      </svg>
+      <Icon
+        class="dart"
+        name="arrow"
+        flip
+        :style="{ '--dart-fill': `url(#${fill})` }"
+      />
     </button>
 
     <slot />
@@ -65,14 +66,13 @@ const leave = (step) => {
       @mouseleave="leave(1)"
     >
       <span class="disc">
-        <svg class="sign" viewBox="0 0 24 24">
-          <rect x="3" y="10.5" width="18" height="3" rx="1.5" />
-          <rect x="10.5" y="3" width="3" height="18" rx="1.5" />
-        </svg>
+        <Icon class="sign" name="add" />
       </span>
-      <svg class="dart" viewBox="0 0 25 44">
-        <path :d="dart" :fill="`url(#${fill})`" />
-      </svg>
+      <Icon
+        class="dart"
+        name="arrow"
+        :style="{ '--dart-fill': `url(#${fill})` }"
+      />
     </button>
   </nav>
 </template>
@@ -94,7 +94,8 @@ const leave = (step) => {
 
 .arrow {
   --arrow-size: calc(var(--control-height) * 1.15);
-  --dart-width: calc(var(--arrow-size) * 25 / 44);
+  --dart-box: calc(var(--arrow-size) * 1.2);
+  --dart-width: calc(var(--arrow-size) * 0.436);
   --disc-size: calc(var(--arrow-size) * 1.3);
   --sign: 1;
   --nudge: calc(var(--dart-width) * 0.35 * var(--sign));
@@ -149,18 +150,20 @@ button.arrow {
 .dart {
   position: absolute;
   top: 50%;
-  right: 0;
+  right: calc(var(--dart-box) * -0.282);
   translate: 0 -50%;
-  width: var(--dart-width);
-  height: var(--arrow-size);
-  stroke: var(--accent-deep);
-  stroke-width: 1.4;
-  stroke-linejoin: round;
+  width: var(--dart-box);
+  height: var(--dart-box);
 
   .prev & {
     right: auto;
-    left: 0;
-    transform: scaleX(-1);
+    left: calc(var(--dart-box) * -0.282);
+  }
+  :deep(path) {
+    fill: var(--dart-fill);
+    stroke: var(--accent-deep);
+    stroke-width: 0.7;
+    stroke-linejoin: round;
   }
 }
 
@@ -245,6 +248,6 @@ button.arrow {
 .sign {
   width: 54%;
   height: 54%;
-  fill: var(--ink-faint);
+  color: var(--ink-faint);
 }
 </style>
