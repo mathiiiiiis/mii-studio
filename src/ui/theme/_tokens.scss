@@ -72,6 +72,16 @@
     #b9c7d7 96.8%,
     #b6c6d7 100%
   );
+  --control-edge-active: linear-gradient(
+    to bottom,
+    #{p.$violet-edge},
+    #{p.$violet-edge}
+  );
+  --control-fill-active: linear-gradient(#{p.$violet-lo} 0 0);
+  --control-gloss-active: #{p.$violet-hi};
+  --row-gloss-start: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 100' preserveAspectRatio='none'%3E%3Cpath fill='%23fff' d='M0 0 H50 V42 H40 Q18 42 0 66.5 Z'/%3E%3C/svg%3E");
+  --row-gloss-end: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 100' preserveAspectRatio='none'%3E%3Cpath fill='%23fff' d='M0 0 H29 A21 21 0 0 1 29 42 H0 Z'/%3E%3C/svg%3E");
+
   --control-fill-alt: linear-gradient(
     to bottom,
     #cfd9d9 0%,

@@ -73,14 +73,17 @@ Not one single line.
 
 ## Credits
 
-- Wii Programming Guidlines v1.01a (2006) and Icon and Banner Specifications (2008),
-  for the constraints behind the design language
+- Wii Programming Guidlines v1.01a (2006) and Icon and Banner Specifications
+  (2008), for the constraints behind the design language
 - [ariankordi/FFL.js](https://github.com/ariankordi/FFL.js) for `LUTShaderMaterial`
-- [datkat21/mii-creator](https://github.com/datkat21/mii-creator) for the clips
-  in `fixtures/poses.json`. [Mii Creator Website](https://mii.nxw.pw/)
-- [jerosajose/onliine](https://github.com/jerosajose/onliine) sampled for interface
-  colours and geometry
-- [appsono/sono-new](https://github.com/appsono/sono-new) for many of the icons
-  (why am I crediting my own work lol)
+- [datkat21/mii-creator](https://github.com/datkat21/mii-creator) for the
+  clips in `fixtures/poses.json`.
+  [Mii Creator Website](https://mii.nxw.pw/)
+- [jerosajose/onliine](https://github.com/jerosajose/onliine) sampled for
+  interface colours and geometry
+- [appsono/sono-new](https://github.com/appsono/sono-new) for many of the
+  icons (why am I crediting my own work lol)
+- [Alan-bur/WM4K](https://github.com/Alan-bur/WM4K) for the Wii UI
+  recreation references
 
 Mii is a trademark of Nintendo. Not affiliated with Nintendo.

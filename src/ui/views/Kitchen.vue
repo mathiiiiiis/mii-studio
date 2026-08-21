@@ -3,6 +3,7 @@ import { ref } from "vue";
 import Button from "../controls/Button.vue";
 import IconButton from "../controls/IconButton.vue";
 import Pager from "../controls/Pager.vue";
+import Row from "../controls/Row.vue";
 import TabHeader from "../controls/TabHeader.vue";
 import { iconNames } from "../theme/icons/index.js";
 
@@ -35,6 +36,16 @@ const variants = ["Default", "Alt"];
       <Pager v-model:page="page" :pages="100" class="page">
         <span>page {{ page }} of 100</span>
       </Pager>
+    </section>
+
+    <section>
+      <h2>Row</h2>
+      <div class="rows">
+        <Row label="Language" />
+        <Row label="Test" value="Test" />
+        <Row label="sfsff" value="5cm" />
+        <Row label="disabled" value="yea" disabled />
+      </div>
     </section>
 
     <section>
@@ -94,6 +105,11 @@ const variants = ["Default", "Alt"];
     cursor: pointer;
     text-decoration: none;
   }
+}
+
+.rows {
+  display: grid;
+  gap: 0.75rem;
 }
 
 .pager {
