@@ -1,11 +1,16 @@
 @mixin motion {
   --ease-drop: cubic-bezier(0, 0, 0.29, 1);
+  --ease-spring: cubic-bezier(0.2, 1.5, 0.35, 1);
 
+  --time-pop: 90ms;
   --time-hover: 150ms;
   --time-default: 200ms;
   --time-label: 250ms;
   --time-fade: 300ms;
+  --time-bounce: 420ms;
   --time-screen: 500ms;
+  --time-flash: 600ms;
+  --time-rock: 2400ms;
 
   --delay-stagger: 100ms;
   --delay-label: 500m;
@@ -14,6 +19,9 @@
 
 @mixin reduced {
   @media (prefers-reduced-motion: reduce) {
+    --time-bounce: 0ms;
+    --time-flash: 0ms;
+    --time-rock: 0ms;
     --time-fade: 0ms;
     --time-screen: 0ms;
     --time-stagger: 0ms;

@@ -2,10 +2,12 @@
 import { ref } from "vue";
 import Button from "../controls/Button.vue";
 import IconButton from "../controls/IconButton.vue";
+import Pager from "../controls/Pager.vue";
 import TabHeader from "../controls/TabHeader.vue";
 import { iconNames } from "../theme/icons/index.js";
 
 const surface = ref("black");
+const page = ref(1);
 const disabled = ref(false);
 const last = ref("");
 
@@ -26,6 +28,13 @@ const variants = ["Default", "Alt"];
       <h2>TabHeader</h2>
       <TabHeader title="Mii Studio" version="Ver 0.1.0" />
       <TabHeader title="Pose" />
+    </section>
+
+    <section>
+      <h2>Pager</h2>
+      <Pager v-model:page="page" :pages="100" class="page">
+        <span>page {{ page }} of 100</span>
+      </Pager>
     </section>
 
     <section>
@@ -85,6 +94,10 @@ const variants = ["Default", "Alt"];
     cursor: pointer;
     text-decoration: none;
   }
+}
+
+.pager {
+  width: min(40rem, 100%);
 }
 
 .last {
