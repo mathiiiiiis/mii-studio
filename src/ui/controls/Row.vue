@@ -66,6 +66,7 @@ defineEmits(["click"]);
         calc(100% - var(--cap) * 2) 100% no-repeat,
       var(--row-gloss-end) right center / var(--cap) 100% no-repeat;
     -webkit-mask:
+      var(--row-gloss-start) left center / var(--cap) 100% no-repeat,
       linear-gradient(#000 0 42%, transparent 0) center /
         calc(100% - var(--cap) * 2) 100% no-repeat,
       var(--row-gloss-end) right center / var(--cap) 100% no-repeat;
