@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import Bar from "../controls/Bar.vue";
 import Button from "../controls/Button.vue";
 import Dialog from "../controls/Dialog.vue";
 import IconButton from "../controls/IconButton.vue";
@@ -41,6 +42,20 @@ const askTest2 = async () => {
       <RouterLink to="/">studio (root)</RouterLink>
       <span class="last">{{ last }}</span>
     </div>
+
+    <section>
+      <h2>Bar</h2>
+      <Bar>
+        <template #start>
+          <IconButton name="back" label="Back" />
+        </template>
+        <Button>A very long label</Button>
+        <Button variant="alt">smoll</Button>
+        <template #end>
+          <IconButton name="info" label="Help" />
+        </template>
+      </Bar>
+    </section>
 
     <section>
       <h2>Dialog</h2>
