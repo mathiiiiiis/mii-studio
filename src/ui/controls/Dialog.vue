@@ -75,6 +75,12 @@ dialog {
     display var(--time-fade) allow-discrete,
     overlay var(--time-fade) allow-discrete;
 
+  &.closing {
+    transition:
+      opacity 80ms linear calc(var(--time-fade) - 80ms),
+      translate var(--time-fade) var(--ease-drop);
+  }
+
   &[open]:not(.closing) {
     opacity: 1;
     translate: 0 0;
@@ -87,7 +93,17 @@ dialog {
   }
 
   &::backdrop {
+    background: rgb(0 0 0 / 0%);
+    transition: background var(--time-fade) linear;
+  }
+
+  &[open]:not(.closing)::backdrop {
     background: rgb(0 0 0 / 40%);
+    transition-delay: calc(var(--delay-drop) + var(--time-fade) * 0.1);
+
+    @starting-style {
+      background: rgb(0 0 0 / 0%);
+    }
   }
 }
 
