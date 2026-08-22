@@ -6,6 +6,7 @@ import Dialog from "../controls/Dialog.vue";
 import IconButton from "../controls/IconButton.vue";
 import Pager from "../controls/Pager.vue";
 import Row from "../controls/Row.vue";
+import Spinner from "../controls/Spinner.vue";
 import TabHeader from "../controls/TabHeader.vue";
 import { createDialog } from "../state/dialog.js";
 import { iconNames } from "../theme/icons/index.js";
@@ -55,6 +56,11 @@ const askTest2 = async () => {
           <IconButton name="info" label="Help" />
         </template>
       </Bar>
+    </section>
+
+    <section>
+      <h2>Spinner</h2>
+      <Spinner />
     </section>
 
     <section>
