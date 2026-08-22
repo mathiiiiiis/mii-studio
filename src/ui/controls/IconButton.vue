@@ -10,6 +10,7 @@ defineProps({
   disabled: { type: Boolean, default: false },
   as: { type: String, default: "button" },
   hoverLabel: { type: Boolean, default: true },
+  bare: { type: Boolean, default: false },
 });
 
 defineEmits(["click"]);
@@ -19,6 +20,7 @@ defineEmits(["click"]);
   <component
     :is="as"
     class="icon-button"
+    :class="{ bare }"
     :data-variant="variant"
     :disabled="as === 'button' ? disabled : undefined"
     :type="as === 'button' ? 'button' : undefined"
@@ -26,6 +28,7 @@ defineEmits(["click"]);
     :aria-hidden="as === 'button' ? undefined : true"
     @click="$emit('click', $event)"
   >
+    <span class="plastic" />
     <Icon class="glyph" :name="name" :weight="weight" :flip="flip" />
     <span v-if="hoverLabel" class="hover-label">{{ label || name }}</span>
   </component>
@@ -46,10 +49,6 @@ defineEmits(["click"]);
   color: var(--glyph, var(--ink-on-control));
   cursor: pointer;
   transition: transform var(--time-hover) linear;
-
-  background:
-    var(--control-fill) padding-box,
-    var(--control-edge) border-box;
   flex: none;
   box-sizing: border-box;
 
@@ -59,16 +58,18 @@ defineEmits(["click"]);
     height: 68%;
   }
 
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: var(--glint-color, rgb(255 255 255 / 62%));
-    mask: var(--icon-glint) center / var(--glint-size, 100%) no-repeat;
-    -webkit-mask: var(--icon-glint) center / var(--glint-size, 100%) no-repeat;
-    filter: blur(calc(var(--control-height) * 0.07));
-    pointer-events: none;
+  &.bare .plastic {
+    opacity: 0;
+  }
+
+  &.bare:hover .plastic,
+  &.bare:focus-visible .plastic {
+    opacity: 1;
+  }
+
+  &.bare:hover,
+  &.bare:focus-visible {
+    transform: none;
   }
 
   &:hover {
@@ -101,6 +102,28 @@ defineEmits(["click"]);
       var(--control-line)
     );
     --control-fill: var(--control-fill-alt);
+  }
+}
+
+.plastic {
+  position: absolute;
+  inset: 0;
+  border: 2px solid transparent;
+  border-radius: inherit;
+  background:
+    var(--control-fill) padding-box,
+    var(--control-edge) border-box;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--glint-color, rgb(255 255 255 / 62%));
+    mask: var(--icon-glint) center / var(--glint-size, 100%) no-repeat;
+    -webkit-mask: var(--icon-glint) center / var(--glint-size, 100%) no-repeat;
+    filter: blur(calc(var(--control-height) * 0.07));
+    pointer-events: none;
   }
 }
 

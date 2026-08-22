@@ -5,6 +5,7 @@ import IconButton from "./IconButton.vue";
 
 const props = defineProps({
   pages: { type: Number, required: true },
+  glyph: { type: String, default: "" },
 });
 
 const page = defineModel("page", { type: Number, default: 1 });
@@ -26,7 +27,7 @@ const leave = (step) => {
 </script>
 
 <template>
-  <nav class="pager">
+  <nav class="pager" :class="{ bare: glyph }">
     <svg class="defs" aria-hidden="true">
       <linearGradient :id="fill" x1="0" y1="0" x2="1" y2="0">
         <stop offset="0" stop-color="var(--accent)" />
@@ -44,7 +45,15 @@ const leave = (step) => {
       @click="go(-1)"
       @mouseleave="leave(-1)"
     >
-      <IconButton class="disc" as="span" name="minus" :hover-label="false" />
+      <IconButton
+        class="disc"
+        as="span"
+        :name="glyph || 'minus'"
+        :flip="Boolean(glyph)"
+        :bare="Boolean(glyph)"
+        :hover-label="false"
+        :style="{ '--dart-fill': `url(#${fill})` }"
+      />
       <Icon
         class="dart"
         name="arrow"
@@ -64,7 +73,14 @@ const leave = (step) => {
       @click="go(1)"
       @mouseleave="leave(1)"
     >
-      <IconButton class="disc" as="span" name="add" :hover-label="false" />
+      <IconButton
+        class="disc"
+        as="span"
+        :name="glyph || 'add'"
+        :bare="Boolean(glyph)"
+        :hover-label="false"
+        :style="{ '--dart-fill': `url(#${fill})` }"
+      />
       <Icon
         class="dart"
         name="arrow"
@@ -129,6 +145,19 @@ button.arrow {
     scale: 1;
     translate: 0 0;
   }
+  .bare & .dart {
+    display: none;
+  }
+  .bare & {
+    transition: none;
+  }
+  .bare &.flash,
+  .bare & .disc::after {
+    animation: none;
+  }
+  .bare &:disabled {
+    translate: 0 0;
+  }
   &.flash {
     animation:
       //rock var(--time-rock) ease-in-out infinite,
@@ -168,6 +197,29 @@ button.arrow {
 .disc {
   --control-height: var(--disc-size);
   --glyph: var(--ink-faint);
+
+  .bare & {
+    scale: 1;
+    translate: 0 0;
+    transition: none;
+    left: auto;
+    right: calc(var(--arrow-size) * -0.39);
+  }
+  .bare .prev & {
+    right: auto;
+    left: calc(var(--arrow-size) * -0.39);
+  }
+  .bare & :deep(path) {
+    fill: var(--dart-fill);
+    stroke: var(--accent-deep);
+    stroke-width: 0.7;
+    stroke-linejoin: round;
+  }
+  .bare .arrow:hover & :deep(path),
+  .bare .arrow:focus-visible & :deep(path) {
+    fill: var(--accent-deep);
+  }
+
   position: absolute;
   top: 0;
   left: 0;

@@ -82,6 +82,9 @@ const askTest2 = async () => {
       <Pager v-model:page="page" :pages="100" class="page">
         <span>page {{ page }} of 100</span>
       </Pager>
+      <Pager v-model:page="page" :pages="100" glyph="arrow" class="page">
+        <span>settings mode</span>
+      </Pager>
     </section>
 
     <section>
