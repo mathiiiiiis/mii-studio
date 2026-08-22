@@ -120,6 +120,14 @@ const leave = (step) => {
   &.prev {
     --sign: -1;
   }
+  .bare & {
+    width: var(--disc-size);
+    margin-inline-end: calc(var(--arrow-size) * -0.39);
+    border-radius: var(--radius-control);
+  }
+  .bare &.prev {
+    margin-inline: calc(var(--arrow-size) * -0.39) 0;
+  }
 }
 
 button.arrow {
@@ -202,12 +210,6 @@ button.arrow {
     scale: 1;
     translate: 0 0;
     transition: none;
-    left: auto;
-    right: calc(var(--arrow-size) * -0.39);
-  }
-  .bare .prev & {
-    right: auto;
-    left: calc(var(--arrow-size) * -0.39);
   }
   .bare & :deep(path) {
     fill: var(--dart-fill);
@@ -215,8 +217,8 @@ button.arrow {
     stroke-width: 0.7;
     stroke-linejoin: round;
   }
-  .bare .arrow:hover & :deep(path),
-  .bare .arrow:focus-visible & :deep(path) {
+  .bare &:hover & :deep(path),
+  .bare &:focus-visible & :deep(path) {
     fill: var(--accent-deep);
   }
 
