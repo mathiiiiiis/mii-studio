@@ -1,20 +1,32 @@
 <script setup>
+import { ref } from "vue";
+
 defineProps({
   variant: { type: String, default: "default" },
   type: { type: String, default: "button" },
   disabled: { type: Boolean, default: false },
 });
 
-defineEmits(["click"]);
+const emit = defineEmits(["click"]);
+
+const flash = ref(false);
+
+const press = (event) => {
+  flash.value = false;
+  requestAnimationFrame(() => (flash.value = true));
+  emit("click", event);
+};
 </script>
 
 <template>
   <button
     class="pill"
+    :class="{ flash }"
     :data-variant="variant"
     :disabled="disabled"
     :type="type"
-    @click="$emit('click', $event)"
+    @click="press"
+    @animationend="flash = false"
   >
     <span class="label"><slot /></span>
   </button>
@@ -68,6 +80,20 @@ defineEmits(["click"]);
     pointer-events: none;
   }
 
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--surface-control);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &.flash::after {
+    animation: flash var(--time-flash) ease-out;
+  }
+
   &:hover {
     transform: scale(1.05);
   }
@@ -86,13 +112,17 @@ defineEmits(["click"]);
   }
 
   &[data-variant="settings"] {
-    border: none;
+    border: 0;
     &:hover,
     &:focus-visible {
       --control-fill: var(--control-fill-active);
       --control-edge: var(--control-edge-active);
       transform: none;
     }
+  }
+
+  &[data-variant="bare"] {
+    border: 0;
   }
 
   &[data-variant="alt"] {
@@ -102,6 +132,16 @@ defineEmits(["click"]);
       var(--control-line)
     );
     --control-fill: var(--control-fill-alt);
+  }
+}
+
+@keyframes flash {
+  0%,
+  10% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
   }
 }
 </style>
