@@ -62,6 +62,7 @@ dialog {
   border: none;
   border-block: 3vh solid var(--band);
   border-radius: var(--radius-card);
+  container-type: inline-size;
   background: var(--surface-lines) var(--surface-card);
   color: var(--ink-soft);
   box-shadow: var(--lift);
@@ -111,7 +112,7 @@ form {
   line-height: var(--leading-body);
   letter-spacing: var(--tracking-copy);
   text-align: center;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
 .detail {
