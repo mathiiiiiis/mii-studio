@@ -59,6 +59,18 @@ defineEmits(["click"]);
     height: 68%;
   }
 
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--glint-color, rgb(255 255 255 / 62%));
+    mask: var(--icon-glint) center / var(--glint-size, 100%) no-repeat;
+    -webkit-mask: var(--icon-glint) center / var(--glint-size, 100%) no-repeat;
+    filter: blur(calc(var(--control-height) * 0.07));
+    pointer-events: none;
+  }
+
   &:hover {
     transform: scale(1.1);
   }
