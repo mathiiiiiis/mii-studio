@@ -2,7 +2,7 @@
   --ease-drop: cubic-bezier(0, 0, 0.29, 1);
   --ease-spring: cubic-bezier(0.2, 1.5, 0.35, 1);
 
-  --time-pop: 90ms;
+  --time-pop: 100ms;
   --time-hover: 150ms;
   --time-default: 200ms;
   --time-label: 250ms;
@@ -19,6 +19,7 @@
 
 @mixin reduced {
   @media (prefers-reduced-motion: reduce) {
+    --time-pop: 0ms;
     --time-bounce: 0ms;
     --time-flash: 0ms;
     --time-rock: 0ms;

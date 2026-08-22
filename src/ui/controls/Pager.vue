@@ -102,7 +102,7 @@ const leave = (step) => {
   --rock: calc(var(--dart-width) * 0.12);
   --exit: calc(var(--dart-width) * 1.5 * var(--sign));
   flex: none;
-  width: calc(var(--disc-size) + var(--dart-width) * 0.52);
+  width: calc(var(--disc-size) + var(--dart-width) * 0.65);
   height: var(--disc-size);
   &.prev {
     --sign: -1;
@@ -130,6 +130,7 @@ button.arrow {
   &:hover .disc,
   &:focus-visible .disc {
     opacity: 1;
+    scale: 1;
   }
   &.flash {
     animation:
@@ -175,6 +176,9 @@ button.arrow {
   z-index: 1;
   place-items: center;
   z-index: 1;
+  transform-origin: right center;
+  scale: 0;
+  transition: scale var(--time-pop) linear;
   width: var(--disc-size);
   height: var(--disc-size);
   border: 2px solid transparent;
@@ -187,6 +191,7 @@ button.arrow {
   .prev & {
     left: auto;
     right: 0;
+    transform-origin: left center;
   }
   .flash &::after {
     animation: flash var(--time-flash) ease-out;
