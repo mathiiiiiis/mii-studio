@@ -59,7 +59,7 @@ npm test                # run test suite
 - [x] 6 rig extraction in the browser
 - [x] 7 theme layer, tokens and so on
   - [x] 7.5 icons come when UI needs them
-- [ ] 8 components: pill, icon button, hover label, tab header, message box, etc.
+- [x] 8 components: pill, icon button, hover label, tab header, message box, etc.
 - [ ] 9 screens: pose / timeline / clips
 - [ ] 10 dashboard, multiple models, tiles
 
