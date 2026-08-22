@@ -1,6 +1,7 @@
 <script setup>
 import { ref, useId } from "vue";
 import Icon from "./Icon.vue";
+import IconButton from "./IconButton.vue";
 
 const props = defineProps({
   pages: { type: Number, required: true },
@@ -43,9 +44,7 @@ const leave = (step) => {
       @click="go(-1)"
       @mouseleave="leave(-1)"
     >
-      <span class="disc">
-        <Icon class="sign" name="minus" />
-      </span>
+      <IconButton class="disc" as="span" name="minus" :hover-label="false" />
       <Icon
         class="dart"
         name="arrow"
@@ -65,9 +64,7 @@ const leave = (step) => {
       @click="go(1)"
       @mouseleave="leave(1)"
     >
-      <span class="disc">
-        <Icon class="sign" name="add" />
-      </span>
+      <IconButton class="disc" as="span" name="add" :hover-label="false" />
       <Icon
         class="dart"
         name="arrow"
@@ -169,23 +166,14 @@ button.arrow {
 }
 
 .disc {
-  display: grid;
+  --control-height: var(--disc-size);
+  --glyph: var(--ink-faint);
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
-  place-items: center;
-  z-index: 1;
   transform-origin: right center;
   scale: 0;
-  transition: scale var(--time-pop) linear;
-  width: var(--disc-size);
-  height: var(--disc-size);
-  border: 2px solid transparent;
-  border-radius: var(--radius-control);
-  background:
-    var(--control-fill-default) padding-box,
-    var(--control-edge-default) border-box;
   opacity: 0;
 
   .prev & {
@@ -248,11 +236,5 @@ button.arrow {
   100% {
     opacity: 0;
   }
-}
-
-.sign {
-  width: 54%;
-  height: 54%;
-  color: var(--ink-faint);
 }
 </style>

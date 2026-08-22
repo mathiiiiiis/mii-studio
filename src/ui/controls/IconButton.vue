@@ -8,23 +8,27 @@ defineProps({
   flip: { type: Boolean, default: false },
   variant: { type: String, default: "default" },
   disabled: { type: Boolean, default: false },
+  as: { type: String, default: "button" },
+  hoverLabel: { type: Boolean, default: true },
 });
 
 defineEmits(["click"]);
 </script>
 
 <template>
-  <button
+  <component
+    :is="as"
     class="icon-button"
     :data-variant="variant"
-    :disabled="disabled"
-    :aria-label="label || name"
-    type="button"
+    :disabled="as === 'button' ? disabled : undefined"
+    :type="as === 'button' ? 'button' : undefined"
+    :aria-label="as === 'button' ? label || name : undefined"
+    :aria-hidden="as === 'button' ? undefined : true"
     @click="$emit('click', $event)"
   >
     <Icon class="glyph" :name="name" :weight="weight" :flip="flip" />
-    <span class="hover-label">{{ label || name }}</span>
-  </button>
+    <span v-if="hoverLabel" class="hover-label">{{ label || name }}</span>
+  </component>
 </template>
 
 <style lang="scss" scoped>
@@ -39,7 +43,7 @@ defineEmits(["click"]);
   height: var(--control-height);
   border-radius: var(--radius-control);
   border: 2px solid transparent;
-  color: var(--ink-on-control);
+  color: var(--glyph, var(--ink-on-control));
   cursor: pointer;
   transition: transform var(--time-hover) linear;
 
