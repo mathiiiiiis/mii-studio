@@ -32,7 +32,12 @@ watch(
 <template>
   <dialog ref="element" data-surface="paper" @cancel.prevent="dialog.cancel()">
     <form method="dialog" @submit.prevent="dialog.accept()">
-      <p class="message">{{ dialog.message.value }}</p>
+      <div class="copy">
+        <p class="message">{{ dialog.message.value }}</p>
+        <p v-if="dialog.detail.value" class="detail">
+          {{ dialog.detail.value }}
+        </p>
+      </div>
 
       <input
         v-if="dialog.kind.value === 'prompt'"
@@ -94,6 +99,11 @@ form {
   padding: 1.75rem 1.5rem 0.25rem;
 }
 
+.copy {
+  display: grid;
+  gap: 0.75rem;
+}
+
 .message {
   margin: 0;
   font-size: var(--text-title);
@@ -102,6 +112,16 @@ form {
   letter-spacing: var(--tracking-copy);
   text-align: center;
   text-wrap: balance;
+}
+
+.detail {
+  margin: 0;
+  font-size: var(--text-body);
+  font-family: var(--font-dialog);
+  line-height: var(--leading-body);
+  color: var(--ink-body);
+  text-align: center;
+  text-wrap: pretty;
 }
 
 input {
