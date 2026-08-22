@@ -1,10 +1,12 @@
 <script setup>
 import { ref } from "vue";
 import Button from "../controls/Button.vue";
+import Dialog from "../controls/Dialog.vue";
 import IconButton from "../controls/IconButton.vue";
 import Pager from "../controls/Pager.vue";
 import Row from "../controls/Row.vue";
 import TabHeader from "../controls/TabHeader.vue";
+import { createDialog } from "../state/dialog.js";
 import { iconNames } from "../theme/icons/index.js";
 
 const surface = ref("black");
@@ -13,6 +15,21 @@ const disabled = ref(false);
 const last = ref("");
 
 const variants = ["Default", "Settings", "Bare", "Alt"];
+
+const dialog = createDialog();
+
+const askTest = async () => {
+  const name = await dialog.ask("This is a test", "Input");
+  last.value = name == null ? "prompt cancelled" : `prompt returned ${name}`;
+};
+
+const askTest2 = async () => {
+  const ok = await dialog.confirm(
+    "Do you agree that I now own your soul?",
+    "souls are actually just a myth!! --mathis 2026",
+  );
+  last.value = ok == null ? "confirm accepted" : `confirm cancelled`;
+};
 </script>
 
 <template>
@@ -24,6 +41,14 @@ const variants = ["Default", "Settings", "Bare", "Alt"];
       <RouterLink to="/">studio (root)</RouterLink>
       <span class="last">{{ last }}</span>
     </div>
+
+    <section>
+      <h2>Dialog</h2>
+      <div class="row">
+        <Button @click="askTest">Prompt test</Button>
+        <Button @click="askTest2">Confirm test</Button>
+      </div>
+    </section>
 
     <section>
       <h2>TabHeader</h2>
@@ -75,6 +100,8 @@ const variants = ["Default", "Settings", "Bare", "Alt"];
         />
       </div>
     </section>
+
+    <Dialog :dialog="dialog" />
   </div>
 </template>
 
