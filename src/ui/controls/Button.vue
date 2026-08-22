@@ -40,9 +40,9 @@ const press = (event) => {
   position: relative;
   align-items: center;
   justify-content: center;
-  min-height: var(--control-height);
+  --cap: var(--control-height);
+  height: var(--control-height);
   padding: 0 calc(var(--control-height) * 0.9);
-  aspect-ratio: 3 / 1;
   border-radius: var(--radius-control);
   border: 2px solid transparent;
   font: inherit;
@@ -72,10 +72,17 @@ const press = (event) => {
       rgb(255 255 255 / 12%) 50%,
       rgb(255 255 255 / 10%) 62%
     );
-    mask-image: var(--control-gloss);
-    -webkit-mask-image: var(--control-gloss);
-    mask-size: 100% 100%;
-    -webkit-mask-size: 100% 100%;
+    mask:
+      var(--control-gloss-start) left center / var(--cap) 100% no-repeat,
+      var(--control-gloss-middle) center / calc(100% - var(--cap) * 2) 100%
+        no-repeat,
+      var(--control-gloss-end) right center / var(--cap) 100% no-repeat;
+    -webkit-mask:
+      var(--control-gloss-start) left center / var(--cap) 100% no-repeat,
+      var(--control-gloss-middle) center / calc(100% - var(--cap) * 2) 100%
+        no-repeat,
+      var(--control-gloss-end) right center / var(--cap) 100% no-repeat;
+
     filter: blur(0.5px);
     pointer-events: none;
   }
