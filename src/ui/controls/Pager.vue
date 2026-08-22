@@ -126,8 +126,8 @@ button.arrow {
   }
   &:hover .disc,
   &:focus-visible .disc {
-    opacity: 1;
     scale: 1;
+    translate: 0 0;
   }
   &.flash {
     animation:
@@ -174,7 +174,10 @@ button.arrow {
   z-index: 1;
   transform-origin: right center;
   scale: 0;
-  opacity: 0;
+  translate: calc(var(--dart-width) * 0.4 * var(--sign)) 0;
+  transition:
+    scale var(--time-pop) linear,
+    translate var(--time-pop) linear;
 
   .prev & {
     left: auto;
