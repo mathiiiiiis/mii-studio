@@ -12,7 +12,7 @@ const page = ref(1);
 const disabled = ref(false);
 const last = ref("");
 
-const variants = ["Default", "Alt"];
+const variants = ["Default", "Settings", "Alt"];
 </script>
 
 <template>

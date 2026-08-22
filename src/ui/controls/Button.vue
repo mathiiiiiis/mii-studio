@@ -85,6 +85,16 @@ defineEmits(["click"]);
     pointer-events: none;
   }
 
+  &[data-variant="settings"] {
+    border: none;
+    &:hover,
+    &:focus-visible {
+      --control-fill: var(--control-fill-active);
+      --control-edge: var(--control-edge-active);
+      transform: none;
+    }
+  }
+
   &[data-variant="alt"] {
     --control-edge: linear-gradient(
       to bottom,
