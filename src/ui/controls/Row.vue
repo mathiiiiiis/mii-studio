@@ -1,7 +1,8 @@
 <script setup>
 defineProps({
   label: { type: String, required: true },
-  value: { type: String, default: "" },
+  value: { type: [String, Number], default: "" },
+  numeric: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
 });
 
@@ -16,7 +17,9 @@ defineEmits(["click"]);
     @click="$emit('click', $event)"
   >
     <span class="label">{{ label }}</span>
-    <span v-if="value" class="value">{{ value }}</span>
+    <span v-if="value !== ''" class="value" :class="{ numeric }">
+      {{ value }}
+    </span>
     <slot />
   </button>
 </template>
@@ -61,7 +64,8 @@ defineEmits(["click"]);
       var(--row-gloss-start) left center / var(--cap) 100% no-repeat,
       linear-gradient(#000 0 42%, transparent 0) center /
         calc(100% - var(--cap) * 2) 100% no-repeat,
-      var(--row-gloss-end) right center / var(--cap) 100% no-repeat,
+      var(--row-gloss-end) right center / var(--cap) 100% no-repeat;
+    -webkit-mask:
       linear-gradient(#000 0 42%, transparent 0) center /
         calc(100% - var(--cap) * 2) 100% no-repeat,
       var(--row-gloss-end) right center / var(--cap) 100% no-repeat;
@@ -82,6 +86,11 @@ defineEmits(["click"]);
     right: calc(var(--control-height) * 0.7);
     color: var(--ink-soft);
     font-size: var(--text-caption);
+
+    &.numeric {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
   }
 
   &:hover,

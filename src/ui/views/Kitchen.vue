@@ -90,6 +90,7 @@ const askTest2 = async () => {
         <Row label="Language" />
         <Row label="Test" value="Test" />
         <Row label="sfsff" value="5cm" />
+        <Row label="something" value="15cm" numeric />
         <Row label="disabled" value="yea" disabled />
       </div>
     </section>
