@@ -185,14 +185,14 @@ button.arrow {
 .dart {
   position: absolute;
   top: 50%;
-  right: calc(var(--dart-box) * -0.282);
+  right: calc(var(--dart-box) * -0.3);
   translate: 0 -50%;
   width: var(--dart-box);
   height: var(--dart-box);
 
   .prev & {
     right: auto;
-    left: calc(var(--dart-box) * -0.282);
+    left: calc(var(--dart-box) * -0.3);
   }
   :deep(path) {
     fill: var(--dart-fill);
