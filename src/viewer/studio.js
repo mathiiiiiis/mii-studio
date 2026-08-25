@@ -59,6 +59,7 @@ export async function createStudio(container, { url, ask = defaultAsk } = {}) {
   onFrame(animate.tick);
 
   const selected = () => picking.selected?.userData.bone ?? null;
+  const select = (name) => picking.select(name);
 
   picking.onSelect((marker) => gizmo.attach(marker?.userData.bone ?? null));
   gizmo.onDragStart(() => history.push(selected()));
@@ -149,6 +150,7 @@ export async function createStudio(container, { url, ask = defaultAsk } = {}) {
     materials,
     commands,
     selected,
+    select,
     onSelect: picking.onSelect,
     dispose: stage.dispose,
   };

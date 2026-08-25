@@ -54,6 +54,8 @@ export function createPicking({
     get selected() {
       return selected;
     },
+    select: (name) =>
+      select(joints.find((j) => j.userData.name === name) ?? null),
     onSelect: (fn) => listeners.push(fn),
   };
 }
