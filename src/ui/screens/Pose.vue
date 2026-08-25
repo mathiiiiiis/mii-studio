@@ -27,6 +27,7 @@ const groups = [
   },
 ];
 
+const size = Math.max(...groups.map((entry) => entry.bones.length));
 const group = ref(1);
 const bones = computed(() =>
   groups[group.value - 1].bones.filter(
@@ -34,6 +35,7 @@ const bones = computed(() =>
   ),
 );
 
+const pad = computed(() => size - bones.value.length);
 const fixed = (n, places = 2) => Number(n).toFixed(places);
 </script>
 
@@ -58,6 +60,7 @@ const fixed = (n, places = 2) => Number(n).toFixed(places);
         @click="state.select(name)"
       />
 
+      <div v-for="n in pad" :key="`pad-${n}`" class="pad" />
 
       <Pager
         v-model:page="group"
@@ -84,12 +87,16 @@ const fixed = (n, places = 2) => Number(n).toFixed(places);
 }
 
 .list {
+  --row-align: start;
   display: grid;
   gap: calc(var(--control-height) * 0.2);
   width: min(20rem, 32vw);
   pointer-events: auto;
 }
 
+.pad {
+  height: var(--control-height);
+}
 
 .groups {
   width: 100%;

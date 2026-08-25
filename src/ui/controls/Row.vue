@@ -79,7 +79,7 @@ defineEmits(["click"]);
     flex: 1;
     position: relative;
     overflow: hidden;
-    text-align: center;
+    text-align: var(--row-align, center);
     text-overflow: ellipsis;
     white-space: nowrap;
   }
