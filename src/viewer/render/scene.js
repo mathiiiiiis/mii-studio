@@ -1,9 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
-export const BACKGROUND = 0x16181d;
-
-const GRID = 0x6b7789;
+const GRID = 0xb6bb6b6;
 const GRID_SIZE = 4;
 const GRID_STEP = 0.25;
 
@@ -28,7 +26,6 @@ export function createScene(container) {
   container.append(renderer.domElement);
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(BACKGROUND);
 
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 40);
   camera.position.set(0.9, 1.4, 3.4);
@@ -46,7 +43,6 @@ export function createScene(container) {
   scene.add(grid);
 
   const setColorSpace = (space) => {
-    scene.background.setHex(BACKGROUND, space);
     grid.material.color.setHex(GRID, space);
   };
 
