@@ -28,8 +28,7 @@ const fixed = (n, places = 2) => Number(n).toFixed(places);
 .pose {
   position: absolute;
   inset: 0;
-  left: calc(var(--control-height) * -2.25);
-  padding: 1rem 1rem 1rem 0;
+  padding: 1rem 0 0 1rem;
   pointer-events: none;
 }
 

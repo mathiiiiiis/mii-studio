@@ -76,12 +76,11 @@ onBeforeUnmount(() => teardown?.());
   <div class="studio">
     <TabHeader :title="screen.title" :version="version" />
 
-    <Pager class="stage" :pages="screens.length" v-model:page="page">
-      <div class="screen">
-        <div ref="viewport" class="viewport"></div>
-        <component :is="screen.view" v-if="state" :state="state" />
-      </div>
-    </Pager>
+    <div class="stage">
+      <div ref="viewport" class="viewport"></div>
+      <component :is="screen.view" v-if="state" :state="state" />
+      <Pager class="arrows" :pages="screens.length" v-model:page="page" />
+    </div>
 
     <Bar>
       <Button
@@ -105,17 +104,15 @@ onBeforeUnmount(() => teardown?.());
 }
 
 .stage {
+  position: relative;
   min-height: 0;
-  padding-inline: calc(var(--control-height) * 0.5);
   background: var(--surface-stage);
 }
 
-.screen {
-  position: relative;
-  flex: 1;
-  align-self: stretch;
-  min-width: 0;
-  pointer-events: auto;
+.arrows {
+  position: absolute;
+  inset: 0;
+  padding-inline: calc(var(--control-height) * 0.5);
 }
 
 .viewport {
