@@ -125,9 +125,9 @@
   @include typography.type;
   @include motion.motion;
   @include motion.reduced;
-  @include black;
+  @include paper;
 }
 
-[data-surface="paper"] {
-  @include paper;
+[data-surface="black"] {
+  @include black;
 }
