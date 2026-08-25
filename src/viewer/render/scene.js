@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
-const GRID = 0xb6bb6b6;
+const GRID = 0xb6b6b6;
 const GRID_SIZE = 4;
 const GRID_STEP = 0.25;
 
