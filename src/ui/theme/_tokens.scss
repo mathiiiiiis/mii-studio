@@ -101,6 +101,8 @@
   --control-gloss-middle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 134' preserveAspectRatio='none'%3E%3Crect fill='%23fff' x='0' y='11' width='10' height='39'/%3E%3C/svg%3E");
   --control-gloss-end: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 134 134' preserveAspectRatio='none'%3E%3Cpath fill='%23fff' d='M0 11 L76.5 11 A19.5 19.5 0 0 1 76.5 50 L0 50 Z'/%3E%3C/svg%3E");
 
+  --select-frame: #{p.$orange};
+
   --icon-glint: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Cg%20transform%3D%27translate%28-5%20-7%29%20rotate%28-30%2050%2050%29%27%3E%3Cpath%20fill%3D%27%23fff%27%20d%3D%27M6%2048C6%2030%2024%2012%2050%2012C76%2012%2094%2030%2094%2048C94%2062%2076%2072%2050%2072C24%2072%206%2062%206%2048Z%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 
   --line-band: 3px;

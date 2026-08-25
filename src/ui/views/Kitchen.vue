@@ -94,6 +94,7 @@ const askTest2 = async () => {
         <Row label="Test" value="Test" />
         <Row label="sfsff" value="5cm" />
         <Row label="something" value="15cm" numeric />
+        <Row label="selected" value="15cm" numeric selected />
         <Row label="disabled" value="yea" disabled />
       </div>
     </section>
@@ -161,7 +162,7 @@ const askTest2 = async () => {
 
 .rows {
   display: grid;
-  gap: 0.75rem;
+  gap: 1.25rem;
 }
 
 .pager {

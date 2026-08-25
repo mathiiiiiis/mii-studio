@@ -3,6 +3,7 @@ defineProps({
   label: { type: String, required: true },
   value: { type: [String, Number], default: "" },
   numeric: { type: Boolean, default: false },
+  selected: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
 });
 
@@ -12,6 +13,7 @@ defineEmits(["click"]);
 <template>
   <button
     class="row"
+    :class="{ selected }"
     type="button"
     :disabled="disabled"
     @click="$emit('click', $event)"
@@ -92,6 +94,32 @@ defineEmits(["click"]);
       font-family: var(--font-mono);
       font-variant-numeric: tabular-nums;
     }
+  }
+
+  &.selected::after {
+    --arm: calc(var(--control-height) * 0.38);
+    --thick: calc(var(--control-height) * 0.1);
+    content: "";
+    position: absolute;
+    inset: calc(var(--control-height) * -0.23);
+    background:
+      linear-gradient(var(--select-frame) 0 0) left top / var(--arm)
+        var(--thick) no-repeat,
+      linear-gradient(var(--select-frame) 0 0) left top / var(--thick)
+        var(--arm) no-repeat,
+      linear-gradient(var(--select-frame) 0 0) right top / var(--arm)
+        var(--thick) no-repeat,
+      linear-gradient(var(--select-frame) 0 0) right top / var(--thick)
+        var(--arm) no-repeat,
+      linear-gradient(var(--select-frame) 0 0) left bottom / var(--arm)
+        var(--thick) no-repeat,
+      linear-gradient(var(--select-frame) 0 0) left bottom / var(--thick)
+        var(--arm) no-repeat,
+      linear-gradient(var(--select-frame) 0 0) right bottom / var(--arm)
+        var(--thick) no-repeat,
+      linear-gradient(var(--select-frame) 0 0) right bottom / var(--thick)
+        var(--arm) no-repeat;
+    pointer-events: none;
   }
 
   &:hover,
