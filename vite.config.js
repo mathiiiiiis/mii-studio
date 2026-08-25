@@ -6,6 +6,7 @@ import vue from "@vitejs/plugin-vue";
 import { poses } from "./vite-plugin-poses.js";
 
 const root = dirname(fileURLToPath(import.meta.url));
+const pkg = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"));
 const config = existsSync(resolve(root, "mii-studio.config.json"))
   ? JSON.parse(readFileSync(resolve(root, "mii-studio.config.json"), "utf8"))
   : {};
@@ -30,5 +31,6 @@ export default defineConfig({
       "/" + (isAbsolute(model) ? relative(root, model) : model),
     ),
     __HAS_SHADER__: JSON.stringify(Boolean(shader)),
+    __VERSION__: JSON.stringify(pkg.version),
   },
 });

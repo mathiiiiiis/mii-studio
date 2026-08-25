@@ -22,6 +22,8 @@ const screens = [
 const page = ref(1);
 const screen = computed(() => screens[page.value - 1]);
 
+const version = `Ver ${__VERSION__}`;
+
 const viewport = ref(null);
 const studio = shallowRef(null);
 const state = shallowRef(null);
@@ -64,7 +66,7 @@ onBeforeUnmount(() => teardown?.());
 
 <template>
   <div class="studio">
-    <TabHeader :title="screen.title" />
+    <TabHeader :title="screen.title" :version="version" />
 
     <Pager class="stage" :pages="screens.length" v-model:page="page">
       <div class="screen">
@@ -75,7 +77,7 @@ onBeforeUnmount(() => teardown?.());
 
     <Bar />
   </div>
-  <Readout v-if="state" :state="state" :commands="studio.commands" />
+  <!--<Readout v-if="state" :state="state" :commands="studio.commands" />-->
   <Dialog :dialog="dialog" />
 </template>
 
