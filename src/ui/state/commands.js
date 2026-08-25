@@ -9,6 +9,10 @@ export function findCommand(commands, event) {
   return commands.find((c) => c.keys.includes(token)) ?? null;
 }
 
+export function pickCommands(commands, ids) {
+  return ids.map((id) => commands.find((c) => c.id === id)).filter(Boolean);
+}
+
 export function byGroup(commands) {
   const groups = new Map();
   for (const command of commands) {

@@ -1,26 +1,30 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
 import { createStudio } from "../../viewer/studio.js";
-import { findCommand } from "../state/commands.js";
+import { findCommand, pickCommands } from "../state/commands.js";
 import { createStudioState } from "../state/studio.js";
 import { createDialog } from "../state/dialog.js";
-import Readout from "../panels/Readout.vue";
+//import Readout from "../panels/Readout.vue";
 import Bar from "../controls/Bar.vue";
+import Button from "../controls/Button.vue";
 import Dialog from "../controls/Dialog.vue";
 import Pager from "../controls/Pager.vue";
 import TabHeader from "../controls/TabHeader.vue";
-import Clips from "../screens/Clips.vue";
-import Pose from "../screens/Pose.vue";
-import Timeline from "../screens/Timeline.vue";
+import Clips, { bar as clipsBar } from "../screens/Clips.vue";
+import Pose, { bar as poseBar } from "../screens/Pose.vue";
+import Timeline, { bar as timelineBar } from "../screens/Timeline.vue";
 
 const screens = [
-  { title: "Pose", view: Pose },
-  { title: "Timeline", view: Timeline },
-  { title: "Clips", view: Clips },
+  { title: "Pose", view: Pose, bar: poseBar },
+  { title: "Timeline", view: Timeline, bar: timelineBar },
+  { title: "Clips", view: Clips, bar: clipsBar },
 ];
 
 const page = ref(1);
 const screen = computed(() => screens[page.value - 1]);
+const actions = computed(() =>
+  pickCommands(studio.value?.commands ?? [], screen.value.bar),
+);
 
 const version = `Ver ${__VERSION__}`;
 
@@ -31,6 +35,14 @@ const dialog = createDialog();
 
 let teardown = null;
 
+async function run(command) {
+  try {
+    await command.run();
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 async function onKeydown(event) {
   if (event.target !== document.body) return;
 
@@ -38,11 +50,7 @@ async function onKeydown(event) {
   if (!command) return;
 
   event.preventDefault();
-  try {
-    await command.run();
-  } catch (error) {
-    console.error(error.message);
-  }
+  run(command);
 }
 
 onMounted(async () => {
@@ -75,7 +83,15 @@ onBeforeUnmount(() => teardown?.());
       </div>
     </Pager>
 
-    <Bar />
+    <Bar>
+      <Button
+        v-for="command in actions"
+        :key="command.id"
+        @click="run(command)"
+      >
+        {{ command.label }}
+      </Button>
+    </Bar>
   </div>
   <!--<Readout v-if="state" :state="state" :commands="studio.commands" />-->
   <Dialog :dialog="dialog" />

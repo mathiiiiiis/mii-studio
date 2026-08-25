@@ -1,9 +1,13 @@
+<script>
+export const bar = ["file.load", "file.export", "pose.resetAll"];
+</script>
+
 <script setup>
 defineProps({
   state: { type: Object, required: true },
 });
 </script>
 
-<<template>
+<template>
   <section class="pose"></section>
 </template>
