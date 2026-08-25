@@ -1,11 +1,26 @@
 <script setup>
-import { onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
 import { createStudio } from "../../viewer/studio.js";
 import { findCommand } from "../state/commands.js";
 import { createStudioState } from "../state/studio.js";
 import { createDialog } from "../state/dialog.js";
 import Readout from "../panels/Readout.vue";
+import Bar from "../controls/Bar.vue";
 import Dialog from "../controls/Dialog.vue";
+import Pager from "../controls/Pager.vue";
+import TabHeader from "../controls/TabHeader.vue";
+import Clips from "../screens/Clips.vue";
+import Pose from "../screens/Pose.vue";
+import Timeline from "../screens/Timeline.vue";
+
+const screens = [
+  { title: "Pose", view: Pose },
+  { title: "Timeline", view: Timeline },
+  { title: "Clips", view: Clips },
+];
+
+const page = ref(1);
+const screen = computed(() => screens[page.value - 1]);
 
 const viewport = ref(null);
 const studio = shallowRef(null);
@@ -48,12 +63,43 @@ onBeforeUnmount(() => teardown?.());
 </script>
 
 <template>
-  <div ref="viewport" class="viewport"></div>
+  <div class="studio">
+    <TabHeader :title="screen.title" />
+
+    <Pager class="stage" :pages="screens.length" v-model:page="page">
+      <div class="screen">
+        <div ref="viewport" class="viewport"></div>
+        <component :is="screen.view" v-if="state" :state="state" />
+      </div>
+    </Pager>
+
+    <Bar />
+  </div>
   <Readout v-if="state" :state="state" :commands="studio.commands" />
   <Dialog :dialog="dialog" />
 </template>
 
 <style lang="scss" scoped>
+.studio {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+}
+
+.stage {
+  min-height: 0;
+  padding-inline: calc(var(--control-height) * 0.5);
+  background: var(--surface-stage);
+}
+
+.screen {
+  position: relative;
+  flex: 1;
+  align-self: stretch;
+  min-width: 0;
+  pointer-events: auto;
+}
+
 .viewport {
   width: 100%;
   height: 100%;
