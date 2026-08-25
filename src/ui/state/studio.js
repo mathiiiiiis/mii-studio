@@ -74,6 +74,7 @@ export function createStudioState(studio) {
   });
 
   return {
+    select: studio.select,
     bone,
     degrees,
     axis,
